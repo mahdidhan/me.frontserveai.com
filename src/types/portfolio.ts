@@ -24,7 +24,11 @@ export interface SkillCategory {
 
 export interface Certification {
   name: string;
-  issuer: string;
+  provider: string;
+  date: string;
+  url: string;
+  category: string;
+  credentialId?: string;
 }
 
 export interface Education {
