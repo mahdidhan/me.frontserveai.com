@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Mahdi Hamed",
-  title: "Mahdi Hamed — Software Architect & Cloud Solutions Engineer",
+  title: "Mahdi Hamed - Portfolio",
   description:
     "Software Architect with 5+ years designing enterprise SaaS, cloud-native, and AI-enabled solutions. Azure, ASP.NET Core, React, Vue.js, Flutter.",
   url: "https://me.mandn.shop",
