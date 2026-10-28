@@ -13,7 +13,7 @@ export function About() {
             Fig. 2
           </figcaption>
           <Image
-            src="/profile-cutout.webp"
+            src="/profile-photo.webp"
             alt={`Portrait of ${portfolio.name}`}
             width={480}
             height={480}

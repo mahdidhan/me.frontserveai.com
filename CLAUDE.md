@@ -56,7 +56,7 @@ src/data/
   site.ts           siteConfig (url, SEO, navItems, social links, resume path) + jsonLd (built from portfolio data)
 src/lib/theme.ts    manual theme choice (data-theme on <html>, localStorage) + the pre-paint inline script
 src/types/portfolio.ts  content interfaces
-public/             profile.jpg (OG/JSON-LD), profile-cutout.webp (transparent, About section), Mahdi-Hamed-Resume.pdf
+public/             profile.jpg (OG/JSON-LD), profile-photo.webp (transparent cut-out from remove.bg, About section), Mahdi-Hamed-Resume.pdf
 assets/fonts/       static Latin-subset Archivo TTFs for next/og (satori can't read variable fonts) + OFL.txt
 ```
 
