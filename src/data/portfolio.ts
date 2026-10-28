@@ -162,7 +162,7 @@ export const portfolio: PortfolioData = {
   ],
   projects: [
     {
-      title: "Cyber Security Portal",
+      title: "CyberShield",
       role: "Software Architect / Technical Lead",
       description:
         "Designed and led the development of an enterprise incident management platform integrated with Microsoft Sentinel, Microsoft Entra ID, and Azure cloud services.",
