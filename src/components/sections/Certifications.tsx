@@ -1,64 +1,6 @@
 import { portfolio } from "@/data/portfolio";
-import { Card } from "@/components/ui/Card";
-import {
-  MotionWrapper,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/ui/MotionWrapper";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { cn } from "@/lib/utils";
-import type { Accent, Certification } from "@/types/portfolio";
-import { Award, CalendarDays, ExternalLink, ShieldCheck } from "lucide-react";
-
-const accentStyles: Record<Accent, string> = {
-  cyan: "border-cyan-400/20 bg-cyan-400/10 text-cyan-200",
-  violet: "border-violet-400/20 bg-violet-400/10 text-violet-200",
-};
-
-function CertificationCard({ cert }: { cert: Certification }) {
-  return (
-    <Card className="group flex h-full flex-col p-5">
-      <div className="mb-4 flex items-start justify-between gap-4">
-        <div className="rounded-lg bg-violet-500/10 p-2 text-violet-300 transition-colors group-hover:bg-cyan-500/10 group-hover:text-cyan-300">
-          <Award className="h-5 w-5" aria-hidden />
-        </div>
-        <a
-          href={cert.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Verify ${cert.name}`}
-          className="inline-flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 text-xs font-medium text-zinc-400 transition-all hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
-        >
-          Verify
-          <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-        </a>
-      </div>
-
-      <div className="flex flex-1 flex-col">
-        <h3 className="text-base font-semibold leading-snug text-white">
-          {cert.name}
-        </h3>
-        <p className="mt-2 text-sm text-zinc-500">{cert.provider}</p>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
-            {cert.category}
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-400">
-            <CalendarDays className="h-3.5 w-3.5" aria-hidden />
-            {cert.date}
-          </span>
-        </div>
-
-        {cert.credentialId && (
-          <p className="mt-4 truncate border-t border-white/5 pt-4 font-mono text-xs text-zinc-600">
-            ID {cert.credentialId}
-          </p>
-        )}
-      </div>
-    </Card>
-  );
-}
+import { Section } from "@/components/ui/Section";
+import { ExternalLink } from "lucide-react";
 
 export function Certifications() {
   const groups = portfolio.certificationProviders
@@ -71,115 +13,44 @@ export function Certifications() {
     })
     .filter((group) => group.certs.length > 0);
 
-  const allLabels = [
-    ...new Set(portfolio.certificationProviders.flatMap((p) => p.labels)),
-  ];
-
   return (
-    <section
-      id="certifications"
-      aria-labelledby="certifications-heading"
-      className="py-24"
-    >
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <MotionWrapper>
-          <SectionHeading
-            id="certifications-heading"
-            eyebrow="Certifications"
-            title="Verified learning"
-            description="Credentialed growth across AI-powered software engineering, agentic systems, RAG, and project delivery."
-          />
-        </MotionWrapper>
-
-        <div className="space-y-8">
-          {groups.map(({ provider, certs, dates }) => (
-            <MotionWrapper key={provider.name} delay={0.1}>
-              <Card
-                hover={false}
-                className="overflow-hidden border-white/10 bg-surface-sunken/85 p-0"
-              >
-                <div className="border-b border-white/5 bg-white/[0.03] p-6">
-                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-start gap-4">
-                      <div
-                        aria-hidden
-                        className={cn(
-                          "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border font-mono text-sm font-semibold",
-                          accentStyles[provider.accent],
-                        )}
-                      >
-                        {provider.mark}
-                      </div>
-                      <div>
-                        <div className="mb-2 flex flex-wrap gap-2">
-                          {provider.labels.map((label) => (
-                            <span
-                              key={label}
-                              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-zinc-300"
-                            >
-                              {label}
-                            </span>
-                          ))}
-                        </div>
-                        <h3 className="text-xl font-semibold text-white">
-                          {provider.name}
-                        </h3>
-                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
-                          {provider.summary}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div
-                      className={cn(
-                        "inline-flex shrink-0 items-center gap-2 rounded-xl border px-4 py-2 font-mono text-sm",
-                        accentStyles[provider.accent],
-                      )}
-                    >
-                      <ShieldCheck className="h-4 w-4" aria-hidden />
-                      {dates.join(" · ")}
-                    </div>
-                  </div>
-                </div>
-
-                <StaggerContainer className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {certs.map((cert) => (
-                    <StaggerItem key={cert.name}>
-                      <CertificationCard cert={cert} />
-                    </StaggerItem>
-                  ))}
-                </StaggerContainer>
-              </Card>
-            </MotionWrapper>
-          ))}
-        </div>
-
-        <MotionWrapper delay={0.2}>
-          <div className="mt-8 rounded-2xl border border-white/10 bg-linear-to-r from-violet-500/10 via-white/[0.03] to-cyan-500/10 p-5">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-mono text-sm uppercase tracking-widest text-violet-300">
-                  Credential library
-                </p>
-                <p className="mt-2 text-sm text-zinc-400">
-                  {portfolio.certifications.length} verified certificates from
-                  AI and project delivery programs.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {allLabels.map((label) => (
-                  <span
-                    key={label}
-                    className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm text-zinc-200"
-                  >
-                    {label}
-                  </span>
-                ))}
-              </div>
+    <Section id="certifications" title="Certifications">
+      <div className="space-y-14">
+        {groups.map(({ provider, certs, dates }) => (
+          <div key={provider.name}>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <h3 className="text-xl font-semibold font-stretch-112%">
+                {provider.name}
+              </h3>
+              <p className="text-sm text-graphite">
+                {certs.length} certificates, {dates.join(" and ")}
+              </p>
             </div>
+            <p className="mt-2 max-w-[65ch] text-graphite">{provider.summary}</p>
+
+            <ul className="mt-5 divide-y divide-rule border-y border-rule">
+              {certs.map((cert) => (
+                <li
+                  key={cert.name}
+                  className="flex items-baseline justify-between gap-6 py-3"
+                >
+                  <span>{cert.name}</span>
+                  <a
+                    href={cert.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex shrink-0 items-center gap-1 text-sm text-cobalt underline-offset-4 hover:underline"
+                  >
+                    Verify
+                    <span className="sr-only"> {cert.name}</span>
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </MotionWrapper>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }

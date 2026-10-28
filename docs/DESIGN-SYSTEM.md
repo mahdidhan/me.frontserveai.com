@@ -1,92 +1,78 @@
-# Design System
+# Design System: "Drafting film"
 
-The current visual language of the portfolio. Keep new UI consistent with it. When modernizing, change it here first and then migrate components.
+The portfolio of a software architect should look like it was drawn by one: a technical document on cool drafting paper, with one real system diagram as the centerpiece. Everything else stays quiet so that the diagram and the content carry the page.
 
-## Theme
+## Principles
 
-Dark only. A near-black canvas with translucent white surfaces, and a **violet → cyan** accent gradient.
+1. **One bold element.** The hero's architecture diagram (`ArchitectureDiagram`) is the memorable thing, and it's built from real project content. Don't add competing decoration such as glows, gradients, blobs, or background effects.
+2. **Structure carries information.** Hairline rules separate rows and sections. A sticky title rail labels each section. A timeline appears only where the content is a sequence (Experience). Don't add borders, numbers, or labels that encode nothing.
+3. **Lists, not cards.** Content is set as rows, definition lists, and plain text. Avoid grids of identical rounded boxes.
+4. **One orchestrated motion.** The diagram draws itself once on load. There are no scroll reveals or hover lifts. Motion that responds to the user (menu, copy confirmation) is fine.
+5. **Plain, specific copy.** Sentence case, first person where it's Mahdi speaking, and buttons named for what they do ("See projects", "Download résumé", "Copy email").
 
-### Color tokens (`src/app/globals.css`)
+## Color tokens (`src/app/globals.css`)
 
-| Token | Value | Tailwind utility | Used for |
+| Token | Light | Dark | Use |
 |---|---|---|---|
-| `--background` | `#0a0a0f` | `bg-background` | Page canvas |
-| `--foreground` | `#f4f4f5` | `text-foreground` | Body text |
-| `--background-deep` | `#08080d` | `bg-background-deep` | Footer |
-| `--band` | `#0c0c14` | `bg-band` | Alternating section bands (`/50`) |
-| `--surface` | `#12121a` | `bg-surface` | Cards |
-| `--surface-sunken` | `#101018` | `bg-surface-sunken` | Certification group panels |
-| `--surface-elevated` | `#1a1a24` | `bg-surface-elevated` | Raised surfaces |
-| `--muted` | `#a1a1aa` | `text-muted` | Secondary text |
-| `--accent-violet` | `#8b5cf6` | (violet-500) | Focus outline, accents |
-| `--accent-cyan` | `#22d3ee` | (cyan-400) | Gradient end |
+| `paper` | `#f3f5f4` | `#0e141b` | Page background |
+| `paper-raised` | `#fbfcfc` | `#131b24` | Diagram node fill |
+| `ink` | `#16202b` | `#e6ebef` | Primary text, primary button fill, node outlines |
+| `graphite` | `#5b6672` | `#93a0ac` | Secondary text, meta, diagram edges |
+| `rule` | `#d3d9dd` | `#26313c` | Hairlines, dividers, list markers |
+| `cobalt` | `#1f4fd1` | `#7fa2ff` | **Interactive only:** links, active nav, current-role dot, focus ring, diagram focal node |
+| `cobalt-ink` | `#ffffff` | `#0e141b` | Text on cobalt |
+| `grid-dot` | `#c9d0d5` | `#223040` | Dot grid behind the hero figure (`.dot-grid`) |
+| `status` | `#2f8f5b` | `#5cc48a` | Success confirmation ("Copied") |
 
-> Never use raw hex values in components. Use these tokens (e.g. `bg-surface/80`, `ring-offset-background`). Add a new token here and in `globals.css` if you need a new shade. (`opengraph-image.tsx` is the exception, because `next/og` can't read CSS variables.)
+Dark mode follows `prefers-color-scheme`. There is no manual toggle yet (see ROADMAP). Never use raw hex values or Tailwind palette colors (`zinc-*`, `violet-*`) in components. Add a token instead. `opengraph-image.tsx` is the exception, because `next/og` can't read CSS variables, so it mirrors the light values by hand.
 
-### Text hierarchy
-
-- Headings: `text-white`
-- Body / descriptions: `text-zinc-400`
-- Meta (dates, locations, labels): `text-zinc-500`
-- Faint (credential IDs): `text-zinc-600`
-- Accent text (company, role, eyebrow): `text-violet-300` / `text-violet-400`
-
-### Borders & surfaces
-
-- Default border: `border-white/10`; subtle dividers: `border-white/5`
-- Glass fill: `bg-white/5`, with `bg-white/10` on hover
-- Hover accent border: `hover:border-violet-400/30` (or `/20` or `/40`)
-- Card: `rounded-2xl border border-white/10 bg-surface/80 p-6 backdrop-blur-sm`
-
-### Gradients
-
-- Primary accent: `bg-linear-to-r from-violet-600 to-cyan-500` (buttons), `from-violet-500 to-cyan-400` (bars, lines)
-- Gradient text: `bg-linear-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent`
-- Ambient glows: large `blur-3xl` circles at `violet-500/10` and `cyan-500/10`, plus a top radial violet wash (Hero)
+Both themes pass WCAG AA for body text. In light mode, `graphite` on `paper` is 5.3:1, `cobalt` on `paper` is 6.2:1, and text on `cobalt` is 6.8:1. In dark mode the same pairs are 6.9:1, 7.5:1, and 7.5:1.
 
 ## Typography
 
-- Sans: **Inter** (`--font-inter` → `font-sans`)
-- Mono: **JetBrains Mono** (`--font-jetbrains-mono` → `font-mono`). Used for eyebrows, dates, the logo, and IDs.
-- Both are loaded via `next/font/google` in `layout.tsx`.
-- Eyebrow: `font-mono text-sm uppercase tracking-widest text-violet-400`
-- Section title: `text-3xl sm:text-4xl font-bold tracking-tight text-white`
-- Hero H1: `text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight`
+One family, **Archivo** (variable `wght` 100–900 and `wdth` 62–125), with **IBM Plex Mono** only for data like IDs. Width is the expressive axis:
 
-## Layout & spacing
+| Role | Classes |
+|---|---|
+| Hero name | `text-[clamp(3.25rem,9vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em] font-stretch-125%` |
+| Hero statement | `text-xl sm:text-2xl leading-snug max-w-[30ch]` |
+| Section title (h2) | `text-2xl font-semibold tracking-tight font-stretch-118%` |
+| Item title (h3) | `text-xl font-semibold font-stretch-112%` |
+| Sub-item (h4) | `text-lg font-semibold` |
+| Body | base 17px / 1.6 (`body` in globals.css), measure `max-w-[65ch]` |
+| Meta | `text-sm text-graphite` |
 
-- Container: `mx-auto max-w-6xl px-6 lg:px-8`
-- Section rhythm: `py-24`. Alternate sections use the band style `border-y border-white/5 bg-band/50`. The current order is: Hero, About, **Skills (band)**, Experience, **Projects (band)**, Certifications, **Education (band)**, Languages, Contact.
-- SectionHeading has `mb-12 max-w-2xl` and a `h-1 w-16` gradient underline bar.
-- Grids: `gap-4` or `gap-6`. Responsive with `sm:grid-cols-2`, `lg:grid-cols-3` or `lg:grid-cols-4`.
-- Radius: `rounded-lg` (icon chips, badges), `rounded-xl` (buttons), `rounded-2xl` (cards), `rounded-full` (pills)
-- The Navbar is `fixed` with a height of about 72px. The Hero offsets it with `pt-24`. The scroll-spy offset is 120px.
+Rules: no all-caps labels, no eyebrow text above headings, no highlighting a single word in a headline, and no middle-dot (`·`) separated meta strings. Use commas or sentences.
 
-## Components (`src/components/ui`)
+## Layout
+
+- Container: `mx-auto max-w-6xl px-4 sm:px-6 lg:px-8`. Grids that hold wide content use `grid-cols-1` or `minmax(0,1fr)` so children can shrink. Otherwise the page scrolls sideways on phones.
+- **`Section`** (`components/ui/Section.tsx`): `border-t border-rule`, `py-16 lg:py-24`, and a two-column grid `lg:grid-cols-[13rem_minmax(0,1fr)]`. The left rail holds a sticky `h2` and an optional `aside`.
+- Row lists: `divide-y divide-rule border-y border-rule`, rows `py-3`–`py-8`.
+- Label/value pairs: `<dl>`, with `dt` in `text-sm text-graphite` and `dd` in ink.
+- Radius: `rounded-md` for buttons, the photo, and the figure frame (`rounded-lg`). Nothing is pill-shaped except the timeline dots.
+- Fixed header is `h-16`. `scroll-padding-top: 5rem` keeps anchors clear of it.
+
+Section order: Hero, About, Experience, Projects, Skills, Certifications, Education and languages, Contact.
+
+## Components
 
 | Component | Notes |
 |---|---|
-| `Button` | Variants `primary` (gradient), `secondary` (glass), `ghost`. Sizes `sm`/`md`/`lg`. Renders `<a>` when `href` is set. |
-| `Badge` | Glass chip for tech/skills, with a violet hover. |
-| `Card` | Glass surface. `hover` (default true) adds lift + violet glow. |
-| `SectionHeading` | eyebrow + h2 + gradient bar + description. **Pass `id`** for `aria-labelledby`. |
-| `Timeline` / `TimelineItem` | Vertical gradient line + glowing violet dot. |
-| `MotionWrapper` | Fade-up on enter (`y: 24`, 0.5s, once). Accepts `delay`. |
-| `StaggerContainer` / `StaggerItem` | Staggered children (0.08s). |
-| `SocialIcons` | `GitHubIcon`, `LinkedInIcon` inline SVGs. |
-
-Icon chip pattern: `<div className="rounded-lg bg-violet-500/10 p-2"><Icon className="h-5 w-5 text-violet-400" aria-hidden /></div>`
+| `Section` | Section shell described above. Always use it for new sections. |
+| `Button` | `primary` (ink fill, turns cobalt on hover) or `secondary` (outlined). Sizes `md`/`lg`. Renders `<a>` when `href` is set, and forwards all props. |
+| `ArchitectureDiagram` | Server-rendered SVG from `src/data/architecture.ts` (viewBox 560×380, node height 60). The emphasis node is cobalt. On phones it keeps `min-w-[30rem]` and scrolls inside its frame. |
+| Text links | `text-cobalt underline-offset-4 hover:underline`, or for quiet links `underline decoration-rule hover:text-cobalt hover:decoration-cobalt`. |
 
 ## Motion
 
-- Easing: `[0.21, 0.47, 0.32, 0.98]`. Entrance: opacity 0→1, y 24→0 (or 20 for stagger items).
-- `viewport={{ once: true, margin: "-50px" }}`
-- Hover transitions: `transition-all duration-300`, with a card lift of `-translate-y-1`
-- Reduced motion: wrappers render plain `div`s, and global CSS clamps animation and transition durations.
+- The diagram draw-in: nodes fade and rise in (110ms stagger), then edges draw via `stroke-dashoffset` on `pathLength=1` (140ms stagger), then arrowheads and labels appear. The total is about 1.9s.
+- It's defined only inside `@media (prefers-reduced-motion: no-preference)`, so reduced-motion users see the finished drawing. Follow the same pattern for any new animation.
+- Interaction transitions: `transition-colors duration-150`. Don't add transforms on hover.
 
 ## Accessibility baseline
 
-- Global `:focus-visible` violet outline. Buttons add `ring-violet-400` with an offset.
-- `::selection` is violet at 35%.
-- Every section has `id` and `aria-labelledby`. Decorative elements are `aria-hidden`.
-- Contrast: `zinc-400` on `#0a0a0f` passes AA for body text. Avoid `zinc-600` for anything a reader needs.
+- Skip link to `#main`. Every section is labelled via `Section`. `aria-current="location"` marks the active nav link.
+- The diagram has `role="img"` plus `<title>` and `<desc>` that describe the data flow in prose.
+- The mobile menu closes on Escape and returns focus to the toggle. The copy-email action announces itself through a `role="status"` live region.
+- Focus ring: 2px cobalt outline with an offset (`:focus-visible` in globals.css).

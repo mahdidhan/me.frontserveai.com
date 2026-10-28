@@ -2,18 +2,18 @@ import type { PortfolioData } from "@/types/portfolio";
 
 export const portfolio: PortfolioData = {
   name: "Mahdi Hamed",
-  title: "Software Architect · Cloud Solutions Engineer",
+  title: "Software Architect & Cloud Solutions Engineer",
   location: "Amman, Jordan",
   tagline:
-    "Designing scalable cloud-native systems, leading engineering teams, and delivering business-driven technology solutions.",
+    "I design cloud platforms on Azure and lead the teams that build them, from the first architecture diagram to production.",
   summary: [
     "Software Architect with 5+ years of experience designing and delivering enterprise SaaS, cloud-native, and AI-enabled solutions. Experienced in software architecture, microservices, Azure cloud technologies, DevOps, and technical leadership, with a proven track record of leading engineering teams and delivering scalable business platforms across multiple industries.",
     "Specialized in ASP.NET Core, Azure, React, Vue.js, Flutter, and distributed systems architecture. Experienced in designing secure multi-tenant platforms, implementing CI/CD pipelines, optimizing application performance, and building AI-powered solutions leveraging LLMs, Retrieval-Augmented Generation (RAG), Semantic Search, and Agentic AI workflows.",
   ],
   stats: [
-    { label: "Years Experience", value: "5+" },
-    { label: "Engineers Led", value: "8" },
-    { label: "Focus Areas", value: "SaaS · Cloud · AI" },
+    { label: "Experience", value: "5+ years" },
+    { label: "Largest team led", value: "8 engineers" },
+    { label: "Focus", value: "SaaS, cloud, and AI" },
   ],
   skills: [
     {
@@ -196,19 +196,13 @@ export const portfolio: PortfolioData = {
   certificationProviders: [
     {
       name: "DeepLearning.AI",
-      mark: "AI",
-      labels: ["DeepLearning.AI"],
       summary:
         "Applied AI credentials across software design, agentic systems, RAG, and prompting.",
-      accent: "cyan",
     },
     {
       name: "Google / Coursera",
-      mark: "G",
-      labels: ["Google", "Coursera"],
       summary:
         "Project management credentials covering Agile delivery, planning, execution, and capstone work.",
-      accent: "violet",
     },
   ],
   certifications: [

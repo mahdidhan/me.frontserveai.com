@@ -12,8 +12,9 @@ Related docs (read when relevant):
 
 - **Next.js 16.2** (App Router, Turbopack) + **React 19.2** + **TypeScript 5** (strict)
 - **Tailwind CSS v4** via `@tailwindcss/postcss` — CSS-first config in `src/app/globals.css` (`@theme inline`); there is **no `tailwind.config.*`**
-- **Framer Motion 12** for scroll-reveal animations
-- **lucide-react** for icons (brand icons like GitHub/LinkedIn are custom SVGs in `SocialIcons.tsx`, because lucide doesn't ship brand marks)
+- **Fonts:** Archivo (variable, with the `wdth` axis; use `font-stretch-*`) and IBM Plex Mono, via `next/font/google`
+- **No animation library.** The only motion is the hero diagram's CSS draw-in (`.diagram-*` in `globals.css`).
+- **lucide-react** for small UI icons (download, menu, external link, copy)
 - `clsx` + `tailwind-merge` via `cn()` in `src/lib/utils.ts`
 - ESLint 9 flat config (`eslint-config-next` core-web-vitals + typescript). No Prettier, no tests.
 
@@ -38,10 +39,11 @@ src/app/            layout.tsx (fonts, metadata, JSON-LD, Navbar/Footer), page.t
                     opengraph-image.tsx (next/og share card; also used for twitter:image)
 src/components/
   layout/           Navbar (client: scroll-spy + mobile menu), Footer
-  sections/         Hero, About, Skills, Experience, Projects, Certifications, Education, Languages, Contact
-  ui/               Button, Badge, Card, SectionHeading, Timeline, MotionWrapper, SocialIcons
+  sections/         Hero, About, Experience, Projects, Skills, Certifications, Education (+ languages), Contact
+  ui/               Section (spec-sheet section shell), Button, ArchitectureDiagram (hero SVG figure)
 src/data/
   portfolio.ts      ALL CV content (typed as PortfolioData)
+  architecture.ts   nodes/edges for the hero diagram (Cyber Security Portal)
   site.ts           siteConfig (url, SEO, navItems, social links, resume path) + jsonLd
 src/types/portfolio.ts  content interfaces
 public/             profile.jpg, Mahdi-Hamed-Resume.pdf
@@ -52,21 +54,15 @@ Key data flow: **content lives in `src/data/`, components only render it.** Sect
 ## Conventions
 
 - **Content changes go in `src/data/portfolio.ts`** (and its type in `src/types/portfolio.ts`), never hard-coded in components. Certifications are grouped by `certificationProviders`; a cert whose `provider` has no matching provider entry won't render.
-- **Server Components by default.** Add `"use client"` only for state, effects, or browser APIs (Navbar, Contact clipboard, MotionWrapper). Wrap animated content in `MotionWrapper` / `StaggerContainer` + `StaggerItem` rather than making a whole section a client component.
-- **Section anatomy** (copy an existing section):
-  ```tsx
-  <section id="x" aria-labelledby="x-heading" className="py-24">
-    <div className="mx-auto max-w-6xl px-6 lg:px-8">
-      <MotionWrapper><SectionHeading id="x-heading" eyebrow="…" title="…" description="…" /></MotionWrapper>
-      …
-  ```
-  Always pass `id` to `SectionHeading` to match `aria-labelledby`. Alternate sections get the band style `border-y border-white/5 bg-band/50`.
+- **Server Components by default.** Only Navbar (scroll-spy, menu) and Contact (clipboard) are client components.
+- **Section anatomy:** wrap every section in `<Section id="x" title="…">`. It renders the hairline rule, the sticky title rail, the `h2` with `id="x-heading"`, and `aria-labelledby`. Optional `aside` goes in the rail (About uses it for the photo).
+- **Content inside sections is lists, not cards:** `divide-y divide-rule border-y border-rule` rows, `dl` for label/value pairs, plain comma-joined text for tech lists.
 - Adding a section: create it in `components/sections/`, add it to `page.tsx`, and if it should appear in the nav, add it to `siteConfig.navItems` (the href must equal the section `id`).
 - Use `cn()` for conditional classes. Named exports for components (`export function X`); Next special files (`page`, `layout`, etc.) use default exports.
 - Imports use the `@/*` alias for `src/*`.
 - External links: `target="_blank" rel="noopener noreferrer"`. Icons get `aria-hidden`; icon-only buttons and links need an `aria-label`.
-- Respect reduced motion: `MotionWrapper` already checks `useReducedMotion`, and `globals.css` neutralizes CSS animations.
-- Dark-only theme. Accent pair is violet (`violet-400/500/600`) to cyan (`cyan-400/500`). See DESIGN-SYSTEM.md.
+- Motion: don't add scroll-reveal or per-element entrance animations. The hero diagram is the page's one orchestrated moment. Any new CSS animation goes inside `@media (prefers-reduced-motion: no-preference)`.
+- Theme: light "drafting film" by default, with a dark "blueprint at night" version via `prefers-color-scheme`. Use only the tokens (`paper`, `ink`, `graphite`, `rule`, `cobalt`, …), never raw colors or Tailwind palette colors like `zinc-*`. Cobalt is reserved for interactive elements and the diagram's focal node. See DESIGN-SYSTEM.md.
 
 ## Next.js 16 gotchas
 
@@ -79,7 +75,8 @@ This is newer than most training data. Before using any Next API, read `node_mod
 
 ## Verification
 
-There are no tests. After changes, run `npm run lint` and `npm run build`, and spot-check `npm run dev` at mobile (~375px) and desktop widths. Check keyboard focus rings and the reduced-motion behavior.
+There are no tests. After changes, run `npm run lint` and `npm run build`, and spot-check `npm run dev` at mobile (~375px) and desktop widths, in **both light and dark** color schemes. Check keyboard focus rings and the reduced-motion behavior.
+Screenshots: headless Chrome (`chrome.exe --headless=new --screenshot=… --window-size=W,H --blink-settings=preferredColorScheme=1|0`, plus a throwaway `--user-data-dir`). Chrome won't go below ~500px wide on Windows, so test phone widths by loading the page in a 390px `<iframe>`.
 
 ## Identity / domain
 

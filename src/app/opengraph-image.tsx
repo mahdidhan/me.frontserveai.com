@@ -25,27 +25,18 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 96px",
-          background:
-            "radial-gradient(ellipse at top, rgba(139,92,246,0.25) 0%, #0a0a0f 60%)",
-          backgroundColor: "#0a0a0f",
-          color: "#f4f4f5",
+          // Mirrors the "drafting film" tokens in globals.css (next/og can't read CSS vars).
+          backgroundColor: "#f3f5f4",
+          backgroundImage: "radial-gradient(#c9d0d5 1.5px, transparent 1.5px)",
+          backgroundSize: "24px 24px",
+          color: "#16202b",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 680 }}>
-          <div
-            style={{
-              fontSize: 24,
-              letterSpacing: 6,
-              textTransform: "uppercase",
-              color: "#a78bfa",
-            }}
-          >
-            Software Architect
-          </div>
-          <div style={{ marginTop: 20, fontSize: 80, fontWeight: 700, lineHeight: 1.05 }}>
+          <div style={{ fontSize: 88, fontWeight: 700, lineHeight: 1, letterSpacing: -2 }}>
             {portfolio.name}
           </div>
-          <div style={{ marginTop: 20, fontSize: 32, color: "#d4d4d8" }}>
+          <div style={{ marginTop: 20, fontSize: 34, color: "#16202b" }}>
             {portfolio.title}
           </div>
           <div
@@ -53,11 +44,10 @@ export default async function Image() {
               marginTop: 32,
               width: 96,
               height: 6,
-              borderRadius: 3,
-              backgroundImage: "linear-gradient(to right, #8b5cf6, #22d3ee)",
+              backgroundColor: "#1f4fd1",
             }}
           />
-          <div style={{ marginTop: 32, fontSize: 24, color: "#71717a" }}>
+          <div style={{ marginTop: 32, fontSize: 26, color: "#5b6672" }}>
             {siteConfig.url.replace("https://", "")}
           </div>
         </div>
@@ -69,10 +59,10 @@ export default async function Image() {
           width={360}
           height={360}
           style={{
-            borderRadius: 9999,
+            borderRadius: 12,
             objectFit: "cover",
             objectPosition: "top",
-            border: "4px solid rgba(255,255,255,0.12)",
+            border: "2px solid #16202b",
           }}
         />
       </div>

@@ -1,48 +1,39 @@
 import { portfolio } from "@/data/portfolio";
-import { Card } from "@/components/ui/Card";
-import {
-  MotionWrapper,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/ui/MotionWrapper";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Section } from "@/components/ui/Section";
+import Image from "next/image";
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-heading" className="py-24">
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <MotionWrapper>
-          <SectionHeading
-            id="about-heading"
-            eyebrow="About Me"
-            title="Building scalable systems that drive business impact"
-            description="Architecting enterprise platforms with a focus on cloud-native design, security, and AI-powered innovation."
-          />
-        </MotionWrapper>
-
-        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
-          <MotionWrapper delay={0.1}>
-            <div className="space-y-4 text-base leading-relaxed text-zinc-400">
-              {portfolio.summary.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-              ))}
-            </div>
-          </MotionWrapper>
-
-          <StaggerContainer className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-            {portfolio.stats.map((stat) => (
-              <StaggerItem key={stat.label}>
-                <Card hover={false} className="text-center lg:text-left">
-                  <p className="bg-linear-to-r from-violet-400 to-cyan-400 bg-clip-text text-3xl font-bold text-transparent">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
-                </Card>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
+    <Section
+      id="about"
+      title="About"
+      aside={
+        <Image
+          src="/profile.jpg"
+          alt={`Portrait of ${portfolio.name}`}
+          width={208}
+          height={208}
+          sizes="(min-width: 1024px) 208px, 128px"
+          className="mt-6 h-32 w-32 rounded-md object-cover object-top lg:h-52 lg:w-52"
+        />
+      }
+    >
+      <div className="max-w-[65ch] space-y-5 text-lg">
+        {portfolio.summary.map((paragraph) => (
+          <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+        ))}
       </div>
-    </section>
+
+      <dl className="mt-12 grid gap-6 border-t border-rule pt-6 sm:grid-cols-3">
+        {portfolio.stats.map((stat) => (
+          <div key={stat.label}>
+            <dt className="text-sm text-graphite">{stat.label}</dt>
+            <dd className="mt-1 text-xl font-semibold font-stretch-112%">
+              {stat.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </Section>
   );
 }

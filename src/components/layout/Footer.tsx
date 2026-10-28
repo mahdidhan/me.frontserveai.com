@@ -1,57 +1,50 @@
-import { siteConfig } from "@/data/site";
 import { portfolio } from "@/data/portfolio";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/SocialIcons";
-import { ArrowUp, Mail } from "lucide-react";
+import { siteConfig } from "@/data/site";
+
+const linkClass =
+  "underline decoration-rule underline-offset-4 transition-colors hover:text-cobalt hover:decoration-cobalt";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-background-deep">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 sm:flex-row lg:px-8">
-        <div className="text-center sm:text-left">
-          <p className="font-semibold text-white">{portfolio.name}</p>
-          <p className="mt-1 text-sm text-zinc-500">
-            © {year} {portfolio.name}. All rights reserved.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <a
-            href={`mailto:${siteConfig.social.email}`}
-            aria-label="Email Mahdi Hamed"
-            className="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-white/5 hover:text-violet-300"
-          >
-            <Mail className="h-5 w-5" />
-          </a>
-          <a
-            href={siteConfig.social.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn profile"
-            className="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-white/5 hover:text-violet-300"
-          >
-            <LinkedInIcon className="h-5 w-5" />
-          </a>
-          <a
-            href={siteConfig.social.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub profile"
-            className="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-white/5 hover:text-violet-300"
-          >
-            <GitHubIcon className="h-5 w-5" />
-          </a>
-        </div>
-
-        <a
-          href="#"
-          aria-label="Back to top"
-          className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2 text-sm text-zinc-400 transition-all hover:border-violet-400/30 hover:text-violet-300"
-        >
-          <ArrowUp className="h-4 w-4" aria-hidden />
-          Top
-        </a>
+    <footer className="border-t border-rule">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 text-sm text-graphite sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <p>
+          © {year} {portfolio.name}
+        </p>
+        <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          <li>
+            <a href={`mailto:${siteConfig.social.email}`} className={linkClass}>
+              Email
+            </a>
+          </li>
+          <li>
+            <a
+              href={siteConfig.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a
+              href={siteConfig.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href="#hero" className={linkClass}>
+              Back to top
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

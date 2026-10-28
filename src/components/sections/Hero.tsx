@@ -1,98 +1,53 @@
-
+import { architecture } from "@/data/architecture";
 import { portfolio } from "@/data/portfolio";
 import { siteConfig } from "@/data/site";
+import { ArchitectureDiagram } from "@/components/ui/ArchitectureDiagram";
 import { Button } from "@/components/ui/Button";
-import { MotionWrapper } from "@/components/ui/MotionWrapper";
-import { ArrowDown, Download, MapPin } from "lucide-react";
-import Image from "next/image";
+import { Download } from "lucide-react";
 
 export function Hero() {
   return (
-    <section
-      id="hero"
-      aria-label="Introduction"
-      className="relative flex min-h-screen items-center overflow-hidden pt-24"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(139,92,246,0.15)_0%,_transparent_50%)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-32 bottom-1/4 h-96 w-96 rounded-full bg-violet-500/10 blur-3xl"
-      />
-
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16 lg:px-8">
-        <MotionWrapper>
-          <p className="mb-4 font-mono text-sm uppercase tracking-widest text-violet-400">
-            Software Architect
-          </p>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Hi, I&apos;m{" "}
-            <span className="bg-linear-to-r from-violet-400 via-violet-300 to-cyan-400 bg-clip-text text-transparent">
-              {portfolio.name}
-            </span>
+    <section id="hero" aria-labelledby="hero-heading">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-x-16 gap-y-14 px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:px-8 lg:pb-28 lg:pt-40">
+        <div>
+          <h1
+            id="hero-heading"
+            className="text-[clamp(3.25rem,9vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em] font-stretch-125%"
+          >
+            {portfolio.name}
           </h1>
-          <p className="mt-4 text-xl font-medium text-zinc-300 sm:text-2xl">
-            {portfolio.title}
-          </p>
-          <p className="mt-2 flex items-center gap-2 text-sm text-zinc-500">
-            <MapPin className="h-4 w-4 shrink-0" aria-hidden />
-            {portfolio.location}
-          </p>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">
+          <p className="mt-8 max-w-[30ch] text-xl leading-snug sm:text-2xl">
             {portfolio.tagline}
           </p>
+          <p className="mt-4 text-graphite">
+            {portfolio.title}, based in {portfolio.location}.
+          </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <Button href="#projects" size="lg">
-              View Projects
+              See projects
             </Button>
-            <Button href="#contact" variant="secondary" size="lg">
-              Contact Me
-            </Button>
-            <a
+            <Button
               href={siteConfig.resumePath}
               download
-              className="inline-flex items-center gap-2 px-2 py-2 text-sm text-zinc-400 transition-colors hover:text-violet-300"
+              variant="secondary"
+              size="lg"
             >
               <Download className="h-4 w-4" aria-hidden />
-              Download Resume
-            </a>
+              Download résumé
+            </Button>
           </div>
-        </MotionWrapper>
+        </div>
 
-        <MotionWrapper delay={0.15} className="flex justify-center lg:justify-end">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute -inset-4 rounded-full bg-linear-to-br from-violet-500/40 to-cyan-400/30 blur-2xl"
-            />
-            <div className="relative h-64 w-64 overflow-hidden rounded-full border-2 border-white/10 shadow-2xl shadow-violet-500/20 sm:h-72 sm:w-72 lg:h-80 lg:w-80">
-              <Image
-                src="/profile.jpg"
-                alt={`${portfolio.name} — Software Architect`}
-                fill
-                priority
-                sizes="(max-width: 768px) 256px, 320px"
-                className="object-cover object-top"
-              />
-            </div>
+        <figure className="min-w-0">
+          <div className="dot-grid -mx-4 overflow-x-auto rounded-lg border border-rule px-4 py-6 sm:mx-0 sm:px-6">
+            <ArchitectureDiagram />
           </div>
-        </MotionWrapper>
+          <figcaption className="mt-3 max-w-[60ch] text-sm text-graphite">
+            {architecture.caption}
+          </figcaption>
+        </figure>
       </div>
-
-      <a
-        href="#about"
-        aria-label="Scroll to about section"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-zinc-500 transition-colors hover:text-violet-400"
-      >
-        <ArrowDown className="h-6 w-6" aria-hidden />
-      </a>
     </section>
   );
 }

@@ -1,61 +1,121 @@
 @import "tailwindcss";
 
+/*
+ * "Drafting film": cool paper, blue-black ink, one cobalt accent.
+ * Dark mode is "blueprint at night" and follows the OS setting.
+ */
 :root {
-  --background: #0a0a0f;
-  --background-deep: #08080d;
-  --band: #0c0c14;
-  --foreground: #f4f4f5;
-  --surface: #12121a;
-  --surface-sunken: #101018;
-  --surface-elevated: #1a1a24;
-  --muted: #a1a1aa;
-  --accent-violet: #8b5cf6;
-  --accent-cyan: #22d3ee;
+  --paper: #f3f5f4;
+  --paper-raised: #fbfcfc;
+  --ink: #16202b;
+  --graphite: #5b6672;
+  --rule: #d3d9dd;
+  --cobalt: #1f4fd1;
+  --cobalt-ink: #ffffff;
+  --grid-dot: #c9d0d5;
+  --status: #2f8f5b;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e141b;
+    --paper-raised: #131b24;
+    --ink: #e6ebef;
+    --graphite: #93a0ac;
+    --rule: #26313c;
+    --cobalt: #7fa2ff;
+    --cobalt-ink: #0e141b;
+    --grid-dot: #223040;
+    --status: #5cc48a;
+    color-scheme: dark;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-background-deep: var(--background-deep);
-  --color-band: var(--band);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-surface-sunken: var(--surface-sunken);
-  --color-surface-elevated: var(--surface-elevated);
-  --color-muted: var(--muted);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-rule: var(--rule);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-ink: var(--cobalt-ink);
+  --color-grid-dot: var(--grid-dot);
+  --color-status: var(--status);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-plex-mono);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--cobalt);
+  color: var(--cobalt-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Drafting-paper dot grid, used behind the hero figure. */
+.dot-grid {
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/*
+ * The page's single orchestrated moment: the hero diagram draws itself once.
+ * Defined only when motion is welcome, so reduced-motion users get the
+ * finished drawing immediately.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .diagram-node {
+    animation: diagram-appear 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  .diagram-edge {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: diagram-draw 600ms ease-out forwards;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  .diagram-label {
+    animation: diagram-appear 300ms ease-out both;
+    animation-delay: var(--delay, 0ms);
+  }
+}
+
+@keyframes diagram-appear {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes diagram-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), system-ui, sans-serif;
-}
-
-::selection {
-  background: rgba(139, 92, 246, 0.35);
-  color: #fff;
-}
-
-:focus-visible {
-  outline: 2px solid var(--accent-violet);
-  outline-offset: 2px;
 }

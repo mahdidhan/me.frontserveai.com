@@ -27,31 +27,32 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 
 ## 3. Features / enhancements
 
-- [ ] **Project detail and links**: `Project` has optional `github` and `demo` fields, but `Projects.tsx` never renders them. Add link buttons and optional images or screenshots.
-- [ ] **Featured projects**: the `featured` flag exists but isn't used. Highlight featured projects (e.g. a larger card).
-- [ ] Light/dark theme toggle (CSS variables are already in place; add a light palette under `[data-theme="light"]`).
+- [x] Project `github` and `demo` links render when present ("Open live site", "View source"). None are filled in yet: add URLs in `portfolio.ts`.
+- [ ] Project screenshots or a small diagram per project. A case-study page could reuse `ArchitectureDiagram` with its own data.
+- [ ] `featured` flag is still unused (all four projects are featured). Use it if non-featured projects are added.
+- [ ] Manual light/dark toggle. Tokens already switch via `prefers-color-scheme`; add `[data-theme]` overrides and a toggle that persists to `localStorage`.
 - [ ] Contact form (Server Action + Resend/email service), or a "book a call" link.
 - [ ] Blog / writing section using MDX for architecture and AI articles. This needs routes beyond the single page.
 - [ ] Case-study pages per project (`app/projects/[slug]/page.tsx`). Remember that `params` is async in Next 16.
 - [ ] Analytics: `@vercel/analytics` and `@vercel/speed-insights`.
-- [ ] Command palette / keyboard nav (⌘K) to jump between sections.
-- [ ] i18n: Arabic version with RTL (Mahdi lists Arabic as a language).
+- [ ] i18n: Arabic version with RTL (Mahdi lists Arabic as a language). Archivo has no Arabic glyphs, so pair it with an Arabic family.
 - [ ] Testimonials / recommendations section.
 
 ## 4. Modernization (visual)
 
-- [ ] Refresh the hero: animated gradient mesh or subtle grid/noise background, availability status pill ("Open to opportunities"), typed/rotating role line.
-- [ ] Bento-grid layout for About stats and Skills instead of uniform cards.
-- [ ] Skill icons/logos (e.g. Simple Icons) and grouping by proficiency.
-- [ ] Interactive experience timeline (expand/collapse highlights, company logos).
-- [ ] View Transitions API for smooth section and route transitions (React 19.2 / Next 16 support `<ViewTransition>`; check the docs).
-- [ ] Scroll-progress bar and a more refined sticky nav (pill indicator that slides to the active item using `layoutId`).
-- [ ] Custom 404 page with personality, matching the hero.
+- [x] **Redesign to "drafting film"** (see DESIGN-SYSTEM.md): cool paper and ink palette with a dark version, Archivo with its width axis, spec-sheet section layout, and a hero architecture diagram that draws itself once. This replaced the violet/cyan glass-card look.
+- [x] Removed framer-motion and all scroll-reveal animations.
+- [x] Experience grouped by company, so promotions read as one story.
+- [x] 404 and share image restyled to match.
+- [ ] Verify the hero diagram with Mahdi. It's a simplified reading of the Cyber Security Portal project description, so edit `src/data/architecture.ts` if the real topology differs.
+- [ ] Phone-width diagram: it currently scrolls horizontally inside its frame. Consider a vertical layout variant below `sm`.
+- [ ] Load Archivo into `opengraph-image.tsx` (a TTF via `readFile`) so the share card uses the site's typeface.
+- [ ] View Transitions for future multi-page routes (`<ViewTransition>`; check the Next 16 docs).
 
 ## 5. Performance / SEO
 
-- [ ] Verify Lighthouse ≥ 95 on all categories. Check that framer-motion isn't bloating the initial JS (consider `LazyMotion` + `m` components).
-- [ ] Add `alternates.canonical` to the metadata.
+- [ ] Verify Lighthouse ≥ 95 on all categories. framer-motion is gone, so Navbar and Contact are the only client JS.
+- [x] `alternates.canonical` added to the metadata.
 - [ ] Enrich JSON-LD (`knowsAbout`, `alumniOf`, `worksFor`) from `portfolio.ts` instead of duplicating it.
 - [ ] Generate the resume PDF's metadata/title, or link a web resume page.
 

@@ -1,118 +1,83 @@
 "use client";
 
 import { portfolio } from "@/data/portfolio";
-import { Card } from "@/components/ui/Card";
-import { MotionWrapper } from "@/components/ui/MotionWrapper";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { cn } from "@/lib/utils";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/SocialIcons";
-import { Check, Copy, Mail, Phone } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
+  const { email, phone, linkedin, github } = portfolio.contact;
 
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText(portfolio.contact.email);
+      await navigator.clipboard.writeText(email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      window.location.href = `mailto:${portfolio.contact.email}`;
+      window.location.href = `mailto:${email}`;
     }
   };
 
   const links = [
-    {
-      label: "Email",
-      value: portfolio.contact.email,
-      href: `mailto:${portfolio.contact.email}`,
-      icon: Mail,
-      action: copyEmail,
-      actionLabel: copied ? "Copied!" : "Copy email",
-    },
-    {
-      label: "Phone",
-      value: portfolio.contact.phone,
-      href: `tel:${portfolio.contact.phone.replace(/\s/g, "")}`,
-      icon: Phone,
-    },
+    { label: "Phone", value: phone, href: `tel:${phone.replace(/\s/g, "")}` },
     {
       label: "LinkedIn",
       value: "mahdi-hamed-4942b81b3",
-      href: portfolio.contact.linkedin,
-      icon: LinkedInIcon,
+      href: linkedin,
       external: true,
     },
-    {
-      label: "GitHub",
-      value: "mahdidhan",
-      href: portfolio.contact.github,
-      icon: GitHubIcon,
-      external: true,
-    },
+    { label: "GitHub", value: "mahdidhan", href: github, external: true },
   ];
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="py-24">
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <MotionWrapper>
-          <SectionHeading
-            id="contact-heading"
-            eyebrow="Contact"
-            title="Let's connect"
-            description="Open to discussing architecture, cloud solutions, AI-powered platforms, and leadership opportunities."
-          />
-        </MotionWrapper>
+    <Section id="contact" title="Contact">
+      <p className="max-w-[28ch] text-2xl font-semibold leading-snug font-stretch-112% sm:text-3xl">
+        Open to discussing architecture, cloud solutions, AI-powered platforms,
+        and leadership roles.
+      </p>
 
-        <MotionWrapper delay={0.1}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {links.map((link) => (
-              <Card key={link.label} hover={false}>
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4 min-w-0">
-                    <div className="rounded-lg bg-violet-500/10 p-2 shrink-0">
-                      <link.icon
-                        className="h-5 w-5 text-violet-400"
-                        aria-hidden
-                      />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm text-zinc-500">{link.label}</p>
-                      <a
-                        href={link.href}
-                        target={link.external ? "_blank" : undefined}
-                        rel={link.external ? "noopener noreferrer" : undefined}
-                        className="block truncate font-medium text-white transition-colors hover:text-violet-300"
-                      >
-                        {link.value}
-                      </a>
-                    </div>
-                  </div>
-
-                  {link.action && (
-                    <button
-                      type="button"
-                      onClick={link.action}
-                      aria-label={link.actionLabel}
-                      className={cn(
-                        "shrink-0 rounded-lg border border-white/10 p-2 text-zinc-400 transition-all hover:border-violet-400/30 hover:text-violet-300",
-                        copied && "border-green-500/30 text-green-400",
-                      )}
-                    >
-                      {copied ? (
-                        <Check className="h-4 w-4" aria-hidden />
-                      ) : (
-                        <Copy className="h-4 w-4" aria-hidden />
-                      )}
-                    </button>
-                  )}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </MotionWrapper>
+      <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
+        <a
+          href={`mailto:${email}`}
+          className="break-all text-xl text-cobalt underline decoration-cobalt/30 underline-offset-[6px] transition-colors hover:decoration-cobalt sm:text-2xl"
+        >
+          {email}
+        </a>
+        <button
+          type="button"
+          onClick={copyEmail}
+          className="inline-flex h-9 items-center gap-1.5 rounded-md border border-ink/25 px-3 text-sm transition-colors hover:border-ink"
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-status" aria-hidden />
+          ) : (
+            <Copy className="h-4 w-4" aria-hidden />
+          )}
+          {copied ? "Copied" : "Copy email"}
+        </button>
+        <span role="status" className="sr-only">
+          {copied ? "Email address copied to clipboard" : ""}
+        </span>
       </div>
-    </section>
+
+      <dl className="mt-12 grid gap-6 border-t border-rule pt-6 sm:grid-cols-3">
+        {links.map((link) => (
+          <div key={link.label} className="min-w-0">
+            <dt className="text-sm text-graphite">{link.label}</dt>
+            <dd className="mt-1 truncate">
+              <a
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className="underline decoration-rule underline-offset-4 transition-colors hover:text-cobalt hover:decoration-cobalt"
+              >
+                {link.value}
+              </a>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </Section>
   );
 }

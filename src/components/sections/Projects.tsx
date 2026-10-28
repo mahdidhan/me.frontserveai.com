@@ -1,66 +1,62 @@
 import { portfolio } from "@/data/portfolio";
-import { Badge } from "@/components/ui/Badge";
-import { Card } from "@/components/ui/Card";
-import {
-  MotionWrapper,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/ui/MotionWrapper";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { FolderKanban } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { ExternalLink } from "lucide-react";
 
 export function Projects() {
   return (
-    <section
-      id="projects"
-      aria-labelledby="projects-heading"
-      className="border-y border-white/5 bg-band/50 py-24"
-    >
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <MotionWrapper>
-          <SectionHeading
-            id="projects-heading"
-            eyebrow="Selected Projects"
-            title="Featured work"
-            description="Enterprise platforms and products spanning cybersecurity, CRM, mobility, and automotive."
-          />
-        </MotionWrapper>
+    <Section id="projects" title="Selected projects">
+      <ul className="divide-y divide-rule border-y border-rule">
+        {portfolio.projects.map((project) => (
+          <li
+            key={project.title}
+            className="grid gap-x-10 gap-y-3 py-8 md:grid-cols-[minmax(0,1fr)_13rem]"
+          >
+            <div>
+              <h3 className="text-xl font-semibold font-stretch-112%">
+                {project.title}
+              </h3>
+              <p className="mt-1 text-sm text-graphite">{project.role}</p>
+              <p className="mt-4 max-w-[65ch]">{project.description}</p>
 
-        <StaggerContainer className="grid gap-6 sm:grid-cols-2">
-          {portfolio.projects.map((project) => (
-            <StaggerItem key={project.title}>
-              <Card className="flex h-full flex-col">
-                <div className="mb-4 flex items-start gap-3">
-                  <div className="rounded-lg bg-violet-500/10 p-2">
-                    <FolderKanban
-                      className="h-5 w-5 text-violet-400"
-                      aria-hidden
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">
-                      {project.title}
-                    </h3>
-                    <p className="mt-0.5 text-sm text-violet-300">
-                      {project.role}
-                    </p>
-                  </div>
+              {(project.github || project.demo) && (
+                <div className="mt-4 flex gap-5 text-sm">
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-cobalt underline-offset-4 hover:underline"
+                    >
+                      Open live site
+                      <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                    </a>
+                  )}
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-cobalt underline-offset-4 hover:underline"
+                    >
+                      View source
+                      <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                    </a>
+                  )}
                 </div>
+              )}
+            </div>
 
-                <p className="flex-1 text-sm leading-relaxed text-zinc-400">
-                  {project.description}
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-2 border-t border-white/5 pt-5">
-                  {project.tech.map((tech) => (
-                    <Badge key={tech}>{tech}</Badge>
-                  ))}
-                </div>
-              </Card>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-      </div>
-    </section>
+            <ul
+              aria-label={`Technology used in ${project.title}`}
+              className="space-y-1 text-sm text-graphite md:pt-1.5"
+            >
+              {project.tech.map((tech) => (
+                <li key={tech}>{tech}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 }

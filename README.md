@@ -2,14 +2,14 @@
 
 Personal portfolio website for **Mahdi Hamed** — Software Architect & Cloud Solutions Engineer.
 
-Built with Next.js (App Router), TypeScript, Tailwind CSS, Framer Motion, and Lucide React. Optimized for deployment on [Vercel](https://vercel.com) via GitHub.
+Built with Next.js (App Router), TypeScript, Tailwind CSS, and Lucide React. Optimized for deployment on [Vercel](https://vercel.com) via GitHub.
 
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **Animations:** Framer Motion
+- **Fonts:** Archivo (variable width) and IBM Plex Mono via next/font
 - **Icons:** Lucide React
 
 ## Getting Started
@@ -56,9 +56,10 @@ src/
 ├── components/
 │   ├── layout/             # Navbar, Footer
 │   ├── sections/           # Hero, About, Skills, Experience, Projects, Certifications, etc.
-│   └── ui/                 # Reusable Button, Badge, Card, etc.
+│   └── ui/                 # Section shell, Button, ArchitectureDiagram
 ├── data/
 │   ├── portfolio.ts        # All portfolio content (from CV)
+│   ├── architecture.ts     # Hero diagram nodes and edges
 │   └── site.ts             # Site config, SEO, social links
 ├── lib/
 │   └── utils.ts            # cn() utility (clsx + tailwind-merge)
