@@ -43,7 +43,7 @@ src/components/
   ui/               Section (spec-sheet section shell), Button, ArchitectureDiagram (hero SVG figure)
 src/data/
   portfolio.ts      ALL CV content (typed as PortfolioData)
-  architecture.ts   nodes/edges for the hero diagram (Cyber Security Portal)
+  architecture.ts   groups/nodes/edges for the hero diagram (CyberShield, confirmed by Mahdi)
   site.ts           siteConfig (url, SEO, navItems, social links, resume path) + jsonLd
 src/types/portfolio.ts  content interfaces
 public/             profile.jpg, Mahdi-Hamed-Resume.pdf

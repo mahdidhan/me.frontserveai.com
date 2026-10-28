@@ -44,7 +44,8 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 - [x] Removed framer-motion and all scroll-reveal animations.
 - [x] Experience grouped by company, so promotions read as one story.
 - [x] 404 and share image restyled to match.
-- [ ] Verify the hero diagram with Mahdi. It's a simplified reading of the Cyber Security Portal project description, so edit `src/data/architecture.ts` if the real topology differs.
+- [x] Hero diagram redrawn as CyberShield from Mahdi's description: Entra ID single sign-on, NGINX ingress, gRPC services with Helm, Sentinel/Defender/Graph mail signals, Azure SQL and Cosmos DB (plus graph), Service Bus (RabbitMQ locally) with Logic Apps, and Container Registry, Key Vault, Storage and Notification Hubs.
+- [ ] Projects section still calls it "Cyber Security Portal". Rename it to CyberShield if Mahdi wants it to match.
 - [ ] Phone-width diagram: it currently scrolls horizontally inside its frame. Consider a vertical layout variant below `sm`.
 - [ ] Load Archivo into `opengraph-image.tsx` (a TTF via `readFile`) so the share card uses the site's typeface.
 - [ ] View Transitions for future multi-page routes (`<ViewTransition>`; check the Next 16 docs).

@@ -8,7 +8,7 @@ import { Download } from "lucide-react";
 export function Hero() {
   return (
     <section id="hero" aria-labelledby="hero-heading">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-x-16 gap-y-14 px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:px-8 lg:pb-28 lg:pt-40">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-x-16 gap-y-14 px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.25fr)] lg:px-8 lg:pb-28 lg:pt-40">
         <div>
           <h1
             id="hero-heading"

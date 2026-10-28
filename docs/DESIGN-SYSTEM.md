@@ -61,12 +61,12 @@ Section order: Hero, About, Experience, Projects, Skills, Certifications, Educat
 |---|---|
 | `Section` | Section shell described above. Always use it for new sections. |
 | `Button` | `primary` (ink fill, turns cobalt on hover) or `secondary` (outlined). Sizes `md`/`lg`. Renders `<a>` when `href` is set, and forwards all props. |
-| `ArchitectureDiagram` | Server-rendered SVG from `src/data/architecture.ts` (viewBox 560×380, node height 60). The emphasis node is cobalt. On phones it keeps `min-w-[30rem]` and scrolls inside its frame. |
+| `ArchitectureDiagram` | Server-rendered SVG from `src/data/architecture.ts` (viewBox 680×530). Dashed `groups` are zones (Signals, Kubernetes, Data, Shared Azure services); `nodes` may omit `detail`; `edges` can be `bidirectional`. Edge labels have a paper-colored halo (`paint-order: stroke`) so they stay legible over borders. The emphasis node is cobalt. On phones it keeps `min-w-[34rem]` and scrolls inside its frame. |
 | Text links | `text-cobalt underline-offset-4 hover:underline`, or for quiet links `underline decoration-rule hover:text-cobalt hover:decoration-cobalt`. |
 
 ## Motion
 
-- The diagram draw-in: nodes fade and rise in (110ms stagger), then edges draw via `stroke-dashoffset` on `pathLength=1` (140ms stagger), then arrowheads and labels appear. The total is about 1.9s.
+- The diagram draw-in: zones appear (80ms stagger), then nodes fade and rise in (55ms stagger), then edges draw via `stroke-dashoffset` on `pathLength=1` (120ms stagger), then arrowheads and labels appear. The total is about 2.5s.
 - It's defined only inside `@media (prefers-reduced-motion: no-preference)`, so reduced-motion users see the finished drawing. Follow the same pattern for any new animation.
 - Interaction transitions: `transition-colors duration-150`. Don't add transforms on hover.
 

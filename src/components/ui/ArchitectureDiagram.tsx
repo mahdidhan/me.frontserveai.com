@@ -1,14 +1,15 @@
 import { architecture, type DiagramEdge } from "@/data/architecture";
 
-const NODE_HEIGHT = 60;
-const NODE_STAGGER = 110;
-const EDGE_START = 700;
-const EDGE_STAGGER = 140;
+const GROUP_STAGGER = 80;
+const NODE_START = 250;
+const NODE_STAGGER = 55;
+const EDGE_START = NODE_START + architecture.nodes.length * NODE_STAGGER + 150;
+const EDGE_STAGGER = 120;
 const EDGE_DRAW = 600;
 
-function arrowhead(points: DiagramEdge["points"]) {
-  const [x1, y1] = points[points.length - 2];
-  const [x2, y2] = points[points.length - 1];
+type Point = [number, number];
+
+function arrowhead([x1, y1]: Point, [x2, y2]: Point) {
   const angle = Math.atan2(y2 - y1, x2 - x1);
   const size = 7;
   const spread = Math.PI / 7;
@@ -23,56 +24,88 @@ function arrowhead(points: DiagramEdge["points"]) {
   return `M${x2},${y2} L${a[0]},${a[1]} L${b[0]},${b[1]} Z`;
 }
 
+function arrowheads(edge: DiagramEdge) {
+  const p = edge.points;
+  const heads = [arrowhead(p[p.length - 2], p[p.length - 1])];
+  if (edge.bidirectional) heads.push(arrowhead(p[1], p[0]));
+  return heads;
+}
+
+function delayStyle(ms: number) {
+  return { "--delay": `${ms}ms` } as React.CSSProperties;
+}
+
 /**
  * Hero figure. Server-rendered SVG; the draw-in animation is pure CSS
  * (see .diagram-* in globals.css) and is skipped under reduced motion.
  */
 export function ArchitectureDiagram() {
-  const { nodes, edges, title } = architecture;
+  const { groups, nodes, edges, title, description, viewBox } = architecture;
 
   return (
     <svg
-      viewBox="0 0 560 380"
+      viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
       role="img"
       aria-labelledby="diagram-title diagram-desc"
-      className="h-auto w-full min-w-[30rem]"
+      className="h-auto w-full min-w-[34rem]"
     >
       <title id="diagram-title">{title}</title>
-      <desc id="diagram-desc">
-        A Vue.js web app signs users in with Microsoft Entra ID and calls
-        ASP.NET Core incident microservices over HTTPS. Microsoft Sentinel
-        sends alerts to the services, which publish events to Azure Service
-        Bus and read and write data in Azure Cosmos DB.
-      </desc>
+      <desc id="diagram-desc">{description}</desc>
+
+      {groups.map((group, i) => (
+        <g key={group.id} className="diagram-node" style={delayStyle(i * GROUP_STAGGER)}>
+          <rect
+            x={group.x}
+            y={group.y}
+            width={group.width}
+            height={group.height}
+            rx={8}
+            fill="none"
+            strokeWidth={1}
+            strokeDasharray="4 4"
+            className="stroke-graphite/60"
+          />
+          <text
+            x={group.x + 10}
+            y={group.y + 18}
+            fontSize={12}
+            fontWeight={600}
+            className="fill-graphite"
+          >
+            {group.label}
+          </text>
+        </g>
+      ))}
 
       {edges.map((edge, i) => {
         const delay = EDGE_START + i * EDGE_STAGGER;
         return (
-          <g key={edge.label}>
+          <g key={edge.id}>
             <polyline
               points={edge.points.map((p) => p.join(",")).join(" ")}
               pathLength={1}
               fill="none"
               strokeWidth={1.25}
               className="diagram-edge stroke-graphite"
-              style={{ "--delay": `${delay}ms` } as React.CSSProperties}
+              style={delayStyle(delay)}
             />
-            <g
-              className="diagram-label"
-              style={
-                { "--delay": `${delay + EDGE_DRAW - 150}ms` } as React.CSSProperties
-              }
-            >
-              <path d={arrowhead(edge.points)} className="fill-graphite" />
-              <text
-                x={edge.labelAt[0]}
-                y={edge.labelAt[1]}
-                textAnchor={edge.labelAnchor ?? "middle"}
-                fontSize={12}
-                className="fill-graphite"
-              >
-                {edge.label}
-              </text>
+            <g className="diagram-label" style={delayStyle(delay + EDGE_DRAW - 150)}>
+              {arrowheads(edge).map((d) => (
+                <path key={d} d={d} className="fill-graphite" />
+              ))}
+              {edge.label && edge.labelAt && (
+                <text
+                  x={edge.labelAt[0]}
+                  y={edge.labelAt[1]}
+                  textAnchor={edge.labelAnchor ?? "middle"}
+                  fontSize={12}
+                  strokeWidth={4}
+                  paintOrder="stroke"
+                  className="fill-graphite stroke-paper"
+                >
+                  {edge.label}
+                </text>
+              )}
             </g>
           </g>
         );
@@ -80,18 +113,18 @@ export function ArchitectureDiagram() {
 
       {nodes.map((node, i) => {
         const x = node.cx - node.width / 2;
-        const y = node.cy - NODE_HEIGHT / 2;
+        const y = node.cy - node.height / 2;
         return (
           <g
             key={node.id}
             className="diagram-node"
-            style={{ "--delay": `${i * NODE_STAGGER}ms` } as React.CSSProperties}
+            style={delayStyle(NODE_START + i * NODE_STAGGER)}
           >
             <rect
               x={x}
               y={y}
               width={node.width}
-              height={NODE_HEIGHT}
+              height={node.height}
               rx={6}
               strokeWidth={1.25}
               className={
@@ -102,25 +135,27 @@ export function ArchitectureDiagram() {
             />
             <text
               x={node.cx}
-              y={node.cy - 4}
+              y={node.detail ? node.cy - 3 : node.cy + 4.5}
               textAnchor="middle"
-              fontSize={14}
+              fontSize={13}
               fontWeight={600}
               className={node.emphasis ? "fill-cobalt-ink" : "fill-ink"}
             >
               {node.label}
             </text>
-            <text
-              x={node.cx}
-              y={node.cy + 15}
-              textAnchor="middle"
-              fontSize={12}
-              className={
-                node.emphasis ? "fill-cobalt-ink opacity-85" : "fill-graphite"
-              }
-            >
-              {node.detail}
-            </text>
+            {node.detail && (
+              <text
+                x={node.cx}
+                y={node.cy + 14}
+                textAnchor="middle"
+                fontSize={11.5}
+                className={
+                  node.emphasis ? "fill-cobalt-ink opacity-85" : "fill-graphite"
+                }
+              >
+                {node.detail}
+              </text>
+            )}
           </g>
         );
       })}
