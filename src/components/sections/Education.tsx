@@ -14,6 +14,7 @@ export function Education() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>
           <SectionHeading
+            id="education-heading"
             eyebrow="Education"
             title="Academic background"
           />

@@ -13,6 +13,7 @@ export function About() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>
           <SectionHeading
+            id="about-heading"
             eyebrow="About Me"
             title="Building scalable systems that drive business impact"
             description="Architecting enterprise platforms with a focus on cloud-native design, security, and AI-powered innovation."

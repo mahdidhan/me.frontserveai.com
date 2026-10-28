@@ -4,13 +4,13 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 
 ## 1. Bugs / correctness
 
-- [ ] **Broken `aria-labelledby`**: About, Skills, Experience, Projects, Education, Languages, and Contact set `aria-labelledby="<x>-heading"` but don't pass `id` to `SectionHeading`. Only Certifications does it right. Fix: pass `id="<x>-heading"` in each.
-- [x] ~~README Node version~~ (now 20.9+), domain updated.
-- [ ] README project structure omits the Certifications section and `docs/`.
-- [ ] **`Button` with `href`** silently drops `ref` and the rest of `...props` (e.g. `download`, `target`, `aria-*`). It should forward them, or the `href` case should be split into a link component (use `next/link` for internal routes).
-- [ ] **Inconsistent `rel`**: cert "Verify" links use `rel="noreferrer"`, while the rest use `rel="noopener noreferrer"`.
-- [ ] **`sitemap.ts`** uses `lastModified: new Date()`, which changes on every build. Use a fixed or content-derived date.
-- [ ] **OG image**: `profile.png` is declared as 800×800 with `summary_large_image`. Add a proper 1200×630 image (e.g. `app/opengraph-image.tsx` with `next/og`).
+- [x] Broken `aria-labelledby`: every section now passes a matching `id` to `SectionHeading`.
+- [x] README: Node 20.9+, new domain, structure includes Certifications, OG image, and `docs/`.
+- [x] `Button` forwards all props (and `ref`) to the `<a>` or `<button>` it renders. It is typed as a union, and `forwardRef` is gone.
+- [x] Cert "Verify" links use `rel="noopener noreferrer"`.
+- [x] `sitemap.ts` no longer emits a fake `lastModified` that changed on every build.
+- [x] OG image: `app/opengraph-image.tsx` generates a 1200×630 card. It also feeds `twitter:image`, and the old 800×800 entries are gone.
+- [ ] `public/profile.png` is actually a **JPEG** with a `.png` extension. Rename it to `.jpg` and update the references (Hero, `opengraph-image.tsx`), or re-export it as WebP/AVIF.
 
 ## 2. Code health / tech debt
 
@@ -18,7 +18,6 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 - [ ] Move `certificationGroups`, brand marks, and provider pills out of `Certifications.tsx` into `src/data/portfolio.ts` (e.g. a `certificationProviders` array with accent, logo, and summary). Derive group dates and counts from the data.
 - [ ] `Hero.tsx` doesn't need `"use client"` (no hooks; `MotionWrapper` is already a client component). Make it a Server Component.
 - [ ] `Navbar` scroll-spy loops over `offsetTop` on every scroll event. Replace it with an `IntersectionObserver`. Also add Escape-to-close and focus handling to the mobile menu.
-- [ ] Drop `forwardRef` in `Button` (with React 19, `ref` is a prop).
 - [ ] Remove unused create-next-app assets: `public/file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`.
 - [ ] React list keys use text slices (`highlight.slice(0, 50)`). That's fine for static content, but index-plus-content would be safer.
 - [ ] Tailwind v4 naming: consider migrating `bg-gradient-to-*` to `bg-linear-to-*` and `flex-shrink-0` to `shrink-0` for consistency.

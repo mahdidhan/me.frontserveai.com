@@ -33,7 +33,8 @@ Shell is Windows (PowerShell / Git Bash), so use forward-slash paths in scripts.
 
 ```
 src/app/            layout.tsx (fonts, metadata, JSON-LD, Navbar/Footer), page.tsx (composes sections),
-                    globals.css (tokens), loading.tsx, not-found.tsx, sitemap.ts, robots.ts, favicon.ico
+                    globals.css (tokens), loading.tsx, not-found.tsx, sitemap.ts, robots.ts, favicon.ico,
+                    opengraph-image.tsx (next/og share card; also used for twitter:image)
 src/components/
   layout/           Navbar (client: scroll-spy + mobile menu), Footer
   sections/         Hero, About, Skills, Experience, Projects, Certifications, Education, Languages, Contact

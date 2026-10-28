@@ -58,6 +58,7 @@ export function Contact() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>
           <SectionHeading
+            id="contact-heading"
             eyebrow="Contact"
             title="Let's connect"
             description="Open to discussing architecture, cloud solutions, AI-powered platforms, and leadership opportunities."

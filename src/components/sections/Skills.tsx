@@ -18,6 +18,7 @@ export function Skills() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>
           <SectionHeading
+            id="skills-heading"
             eyebrow="Technical Skills"
             title="Expertise across the full stack"
             description="From architecture and cloud infrastructure to frontend, mobile, security, and AI."

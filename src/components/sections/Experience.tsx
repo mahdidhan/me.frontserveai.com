@@ -12,6 +12,7 @@ export function Experience() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>
           <SectionHeading
+            id="experience-heading"
             eyebrow="Professional Experience"
             title="Career journey"
             description="Leading teams and delivering enterprise solutions across cybersecurity, SaaS, and mobile platforms."

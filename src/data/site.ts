@@ -5,7 +5,6 @@ export const siteConfig = {
     "Software Architect with 5+ years designing enterprise SaaS, cloud-native, and AI-enabled solutions. Azure, ASP.NET Core, React, Vue.js, Flutter.",
   url: "https://me.frontserveai.com",
   resumePath: "/Mahdi-Hamed-Resume.pdf",
-  ogImage: "/profile.png",
   keywords: [
     "Software Architect",
     "Cloud Solutions Engineer",

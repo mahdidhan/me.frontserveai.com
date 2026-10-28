@@ -19,6 +19,7 @@ export function Projects() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>
           <SectionHeading
+            id="projects-heading"
             eyebrow="Selected Projects"
             title="Featured work"
             description="Enterprise platforms and products spanning cybersecurity, CRM, mobility, and automotive."

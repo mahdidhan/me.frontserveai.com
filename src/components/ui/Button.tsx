@@ -1,14 +1,20 @@
 import { cn } from "@/lib/utils";
-import { forwardRef } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface BaseProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  href?: string;
 }
+
+type ButtonAsButton = BaseProps &
+  React.ComponentPropsWithRef<"button"> & { href?: undefined };
+
+type ButtonAsLink = BaseProps &
+  React.ComponentPropsWithRef<"a"> & { href: string };
+
+type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variants: Record<ButtonVariant, string> = {
   primary:
@@ -24,39 +30,22 @@ const sizes: Record<ButtonSize, string> = {
   lg: "px-8 py-3 text-base",
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant = "primary",
-      size = "md",
-      href,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const classes = cn(
-      "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f] disabled:pointer-events-none disabled:opacity-50",
-      variants[variant],
-      sizes[size],
-      className,
-    );
+export function Button({
+  className,
+  variant = "primary",
+  size = "md",
+  ...props
+}: ButtonProps) {
+  const classes = cn(
+    "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0f] disabled:pointer-events-none disabled:opacity-50",
+    variants[variant],
+    sizes[size],
+    className,
+  );
 
-    if (href) {
-      return (
-        <a href={href} className={classes}>
-          {children}
-        </a>
-      );
-    }
+  if (props.href !== undefined) {
+    return <a className={classes} {...props} />;
+  }
 
-    return (
-      <button ref={ref} className={classes} {...props}>
-        {children}
-      </button>
-    );
-  },
-);
-
-Button.displayName = "Button";
+  return <button type="button" className={classes} {...props} />;
+}

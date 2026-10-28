@@ -17,7 +17,7 @@ export function Languages() {
     >
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>
-          <SectionHeading eyebrow="Languages" title="Communication" />
+          <SectionHeading id="languages-heading" eyebrow="Languages" title="Communication" />
         </MotionWrapper>
 
         <StaggerContainer className="grid gap-4 sm:grid-cols-2 max-w-2xl">

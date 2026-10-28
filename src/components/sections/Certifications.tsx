@@ -73,7 +73,7 @@ function CertificationCard({ cert }: { cert: Certification }) {
         <a
           href={cert.url}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label={`Verify ${cert.name}`}
           className="inline-flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 text-xs font-medium text-zinc-400 transition-all hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200"
         >

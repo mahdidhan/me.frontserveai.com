@@ -50,11 +50,12 @@ src/
 │   ├── globals.css         # Tailwind + dark theme CSS variables
 │   ├── loading.tsx         # Route loading skeleton
 │   ├── not-found.tsx       # 404 page
+│   ├── opengraph-image.tsx # Generated 1200×630 social share image
 │   ├── sitemap.ts          # SEO sitemap
 │   └── robots.ts           # Crawler rules
 ├── components/
 │   ├── layout/             # Navbar, Footer
-│   ├── sections/           # Hero, About, Skills, Experience, etc.
+│   ├── sections/           # Hero, About, Skills, Experience, Projects, Certifications, etc.
 │   └── ui/                 # Reusable Button, Badge, Card, etc.
 ├── data/
 │   ├── portfolio.ts        # All portfolio content (from CV)
@@ -66,6 +67,9 @@ src/
 public/
 ├── profile.png             # Profile headshot
 └── Mahdi-Hamed-Resume.pdf  # Downloadable resume
+docs/
+├── DESIGN-SYSTEM.md        # Visual language: tokens, typography, components, motion
+└── ROADMAP.md              # Known issues and enhancement backlog
 ```
 
 ## Updating Content
