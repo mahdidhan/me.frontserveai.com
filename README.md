@@ -1,4 +1,4 @@
-# me.mandn.shop
+# me.frontserveai.com
 
 Personal portfolio website for **Mahdi Hamed** — Software Architect & Cloud Solutions Engineer.
 
@@ -16,7 +16,7 @@ Built with Next.js (App Router), TypeScript, Tailwind CSS, Framer Motion, and Lu
 
 ### Prerequisites
 
-- Node.js 18.18 or later
+- Node.js 20.9 or later
 - npm
 
 ### Installation
@@ -80,7 +80,7 @@ Site-wide settings (URL, SEO, navigation) are in [`src/data/site.ts`](src/data/s
 2. Go to [vercel.com/new](https://vercel.com/new) and import the repo
 3. Framework preset: **Next.js** (auto-detected)
 4. Click **Deploy**
-5. Add custom domain `me.mandn.shop` in Project Settings → Domains
+5. Add custom domain `me.frontserveai.com` in Project Settings → Domains
 
 No environment variables are required for this static portfolio.
 
