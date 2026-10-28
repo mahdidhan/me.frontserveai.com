@@ -24,6 +24,7 @@ npm install        # required first — node_modules is not committed (also need
 npm run dev        # http://localhost:3000
 npm run build      # production build — run this to verify changes (type-checks too)
 npm run lint       # eslint
+npm run typecheck  # tsc --noEmit (CI runs lint + typecheck + build on push/PR)
 ```
 
 Node 20.9+ is required by Next 16.
@@ -43,14 +44,14 @@ src/data/
   portfolio.ts      ALL CV content (typed as PortfolioData)
   site.ts           siteConfig (url, SEO, navItems, social links, resume path) + jsonLd
 src/types/portfolio.ts  content interfaces
-public/             profile.png, Mahdi-Hamed-Resume.pdf (+ unused create-next-app SVGs)
+public/             profile.jpg, Mahdi-Hamed-Resume.pdf
 ```
 
 Key data flow: **content lives in `src/data/`, components only render it.** Sections import `portfolio` / `siteConfig` directly; there are no props between `page.tsx` and sections.
 
 ## Conventions
 
-- **Content changes go in `src/data/portfolio.ts`** (and its type in `src/types/portfolio.ts`), never hard-coded in components. Exception (tech debt): `Certifications.tsx` hard-codes `certificationGroups` and provider brand marks. A new cert provider needs a group entry there too, or its certs won't render.
+- **Content changes go in `src/data/portfolio.ts`** (and its type in `src/types/portfolio.ts`), never hard-coded in components. Certifications are grouped by `certificationProviders`; a cert whose `provider` has no matching provider entry won't render.
 - **Server Components by default.** Add `"use client"` only for state, effects, or browser APIs (Navbar, Contact clipboard, MotionWrapper). Wrap animated content in `MotionWrapper` / `StaggerContainer` + `StaggerItem` rather than making a whole section a client component.
 - **Section anatomy** (copy an existing section):
   ```tsx
@@ -59,7 +60,7 @@ Key data flow: **content lives in `src/data/`, components only render it.** Sect
       <MotionWrapper><SectionHeading id="x-heading" eyebrow="…" title="…" description="…" /></MotionWrapper>
       …
   ```
-  Always pass `id` to `SectionHeading` to match `aria-labelledby`. Alternate sections get the band style `border-y border-white/5 bg-[#0c0c14]/50`.
+  Always pass `id` to `SectionHeading` to match `aria-labelledby`. Alternate sections get the band style `border-y border-white/5 bg-band/50`.
 - Adding a section: create it in `components/sections/`, add it to `page.tsx`, and if it should appear in the nav, add it to `siteConfig.navItems` (the href must equal the section `id`).
 - Use `cn()` for conditional classes. Named exports for components (`export function X`); Next special files (`page`, `layout`, etc.) use default exports.
 - Imports use the `@/*` alias for `src/*`.

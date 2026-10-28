@@ -25,7 +25,7 @@ export function SectionHeading({
       <h2 id={id} className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
         {title}
       </h2>
-      <div className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-violet-500 to-cyan-400" />
+      <div className="mt-4 h-1 w-16 rounded-full bg-linear-to-r from-violet-500 to-cyan-400" />
       {description && (
         <p className="mt-4 text-lg leading-relaxed text-zinc-400">
           {description}

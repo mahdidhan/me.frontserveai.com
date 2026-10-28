@@ -10,19 +10,19 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 - [x] Cert "Verify" links use `rel="noopener noreferrer"`.
 - [x] `sitemap.ts` no longer emits a fake `lastModified` that changed on every build.
 - [x] OG image: `app/opengraph-image.tsx` generates a 1200×630 card. It also feeds `twitter:image`, and the old 800×800 entries are gone.
-- [ ] `public/profile.png` is actually a **JPEG** with a `.png` extension. Rename it to `.jpg` and update the references (Hero, `opengraph-image.tsx`), or re-export it as WebP/AVIF.
+- [x] Renamed `public/profile.png` to `profile.jpg` (it was a JPEG all along).
 
 ## 2. Code health / tech debt
 
-- [ ] Replace hard-coded hex colors (`#0a0a0f`, `#12121a`, `#0c0c14`, `#101018`, `#08080d`) with `@theme` tokens (see DESIGN-SYSTEM.md).
-- [ ] Move `certificationGroups`, brand marks, and provider pills out of `Certifications.tsx` into `src/data/portfolio.ts` (e.g. a `certificationProviders` array with accent, logo, and summary). Derive group dates and counts from the data.
-- [ ] `Hero.tsx` doesn't need `"use client"` (no hooks; `MotionWrapper` is already a client component). Make it a Server Component.
-- [ ] `Navbar` scroll-spy loops over `offsetTop` on every scroll event. Replace it with an `IntersectionObserver`. Also add Escape-to-close and focus handling to the mobile menu.
-- [ ] Remove unused create-next-app assets: `public/file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`.
+- [x] Hard-coded hex colors replaced with `@theme` tokens (`background`, `background-deep`, `band`, `surface`, `surface-sunken`).
+- [x] Certification groups moved to `portfolio.certificationProviders`. Group dates are derived from the certs.
+- [x] `Hero.tsx` is a Server Component.
+- [x] `Navbar` scroll-spy uses an `IntersectionObserver`. The mobile menu closes on Escape and returns focus to the toggle.
+- [x] Removed the unused create-next-app SVGs.
 - [ ] React list keys use text slices (`highlight.slice(0, 50)`). That's fine for static content, but index-plus-content would be safer.
-- [ ] Tailwind v4 naming: consider migrating `bg-gradient-to-*` to `bg-linear-to-*` and `flex-shrink-0` to `shrink-0` for consistency.
-- [ ] Add Prettier (+ `prettier-plugin-tailwindcss`) and a `typecheck` script (`tsc --noEmit`).
-- [ ] Add GitHub Actions CI: install, lint, typecheck, build.
+- [x] Tailwind v4 naming: `bg-gradient-to-*` became `bg-linear-to-*`.
+- [ ] Add Prettier (+ `prettier-plugin-tailwindcss`). This will reformat most files, so do it as its own commit.
+- [x] `typecheck` script plus GitHub Actions CI (lint, typecheck, build on push and PR).
 - [ ] `@types/node` is `^20`, which is fine. Consider bumping it to match the Node version Vercel uses.
 
 ## 3. Features / enhancements

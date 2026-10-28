@@ -33,7 +33,7 @@ export function About() {
             {portfolio.stats.map((stat) => (
               <StaggerItem key={stat.label}>
                 <Card hover={false} className="text-center lg:text-left">
-                  <p className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-3xl font-bold text-transparent">
+                  <p className="bg-linear-to-r from-violet-400 to-cyan-400 bg-clip-text text-3xl font-bold text-transparent">
                     {stat.value}
                   </p>
                   <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>

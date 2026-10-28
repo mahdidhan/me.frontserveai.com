@@ -65,7 +65,7 @@ src/
 └── types/
     └── portfolio.ts        # TypeScript interfaces
 public/
-├── profile.png             # Profile headshot
+├── profile.jpg             # Profile headshot
 └── Mahdi-Hamed-Resume.pdf  # Downloadable resume
 docs/
 ├── DESIGN-SYSTEM.md        # Visual language: tokens, typography, components, motion

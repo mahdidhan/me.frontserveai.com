@@ -2,8 +2,11 @@
 
 :root {
   --background: #0a0a0f;
+  --background-deep: #08080d;
+  --band: #0c0c14;
   --foreground: #f4f4f5;
   --surface: #12121a;
+  --surface-sunken: #101018;
   --surface-elevated: #1a1a24;
   --muted: #a1a1aa;
   --accent-violet: #8b5cf6;
@@ -12,8 +15,11 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-deep: var(--background-deep);
+  --color-band: var(--band);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
   --color-surface-elevated: var(--surface-elevated);
   --color-muted: var(--muted);
   --font-sans: var(--font-inter);

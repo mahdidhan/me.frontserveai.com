@@ -31,6 +31,19 @@ export interface Certification {
   credentialId?: string;
 }
 
+export type Accent = "violet" | "cyan";
+
+export interface CertificationProvider {
+  /** Must equal `Certification.provider` for the certs in this group. */
+  name: string;
+  /** Short text shown in the provider's logo tile, e.g. "AI". */
+  mark: string;
+  /** Pill labels shown above the group name, e.g. ["Google", "Coursera"]. */
+  labels: string[];
+  summary: string;
+  accent: Accent;
+}
+
 export interface Education {
   institution: string;
   degree: string;
@@ -61,6 +74,7 @@ export interface PortfolioData {
   skills: SkillCategory[];
   experience: Experience[];
   projects: Project[];
+  certificationProviders: CertificationProvider[];
   certifications: Certification[];
   education: Education[];
   languages: Language[];

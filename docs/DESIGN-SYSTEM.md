@@ -12,13 +12,16 @@ Dark only. A near-black canvas with translucent white surfaces, and a **violet â
 |---|---|---|---|
 | `--background` | `#0a0a0f` | `bg-background` | Page canvas |
 | `--foreground` | `#f4f4f5` | `text-foreground` | Body text |
+| `--background-deep` | `#08080d` | `bg-background-deep` | Footer |
+| `--band` | `#0c0c14` | `bg-band` | Alternating section bands (`/50`) |
 | `--surface` | `#12121a` | `bg-surface` | Cards |
+| `--surface-sunken` | `#101018` | `bg-surface-sunken` | Certification group panels |
 | `--surface-elevated` | `#1a1a24` | `bg-surface-elevated` | Raised surfaces |
 | `--muted` | `#a1a1aa` | `text-muted` | Secondary text |
 | `--accent-violet` | `#8b5cf6` | (violet-500) | Focus outline, accents |
 | `--accent-cyan` | `#22d3ee` | (cyan-400) | Gradient end |
 
-> **Known drift:** components mostly use raw hex arbitrary values instead of the tokens. These include `bg-[#0a0a0f]`, `bg-[#12121a]/80`, `bg-[#0c0c14]/50` (band sections), `bg-[#101018]/85` (cert groups), `bg-[#08080d]` (footer), and `ring-offset-[#0a0a0f]`. Prefer tokens in new code. Add tokens for `#0c0c14`, `#101018`, and `#08080d` before migrating. See ROADMAP.
+> Never use raw hex values in components. Use these tokens (e.g. `bg-surface/80`, `ring-offset-background`). Add a new token here and in `globals.css` if you need a new shade. (`opengraph-image.tsx` is the exception, because `next/og` can't read CSS variables.)
 
 ### Text hierarchy
 
@@ -33,12 +36,12 @@ Dark only. A near-black canvas with translucent white surfaces, and a **violet â
 - Default border: `border-white/10`; subtle dividers: `border-white/5`
 - Glass fill: `bg-white/5`, with `bg-white/10` on hover
 - Hover accent border: `hover:border-violet-400/30` (or `/20` or `/40`)
-- Card: `rounded-2xl border border-white/10 bg-[#12121a]/80 p-6 backdrop-blur-sm`
+- Card: `rounded-2xl border border-white/10 bg-surface/80 p-6 backdrop-blur-sm`
 
 ### Gradients
 
-- Primary accent: `bg-gradient-to-r from-violet-600 to-cyan-500` (buttons), `from-violet-500 to-cyan-400` (bars, lines)
-- Gradient text: `bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent`
+- Primary accent: `bg-linear-to-r from-violet-600 to-cyan-500` (buttons), `from-violet-500 to-cyan-400` (bars, lines)
+- Gradient text: `bg-linear-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent`
 - Ambient glows: large `blur-3xl` circles at `violet-500/10` and `cyan-500/10`, plus a top radial violet wash (Hero)
 
 ## Typography
@@ -53,7 +56,7 @@ Dark only. A near-black canvas with translucent white surfaces, and a **violet â
 ## Layout & spacing
 
 - Container: `mx-auto max-w-6xl px-6 lg:px-8`
-- Section rhythm: `py-24`. Alternate sections use the band style `border-y border-white/5 bg-[#0c0c14]/50`. The current order is: Hero, About, **Skills (band)**, Experience, **Projects (band)**, Certifications, **Education (band)**, Languages, Contact.
+- Section rhythm: `py-24`. Alternate sections use the band style `border-y border-white/5 bg-band/50`. The current order is: Hero, About, **Skills (band)**, Experience, **Projects (band)**, Certifications, **Education (band)**, Languages, Contact.
 - SectionHeading has `mb-12 max-w-2xl` and a `h-1 w-16` gradient underline bar.
 - Grids: `gap-4` or `gap-6`. Responsive with `sm:grid-cols-2`, `lg:grid-cols-3` or `lg:grid-cols-4`.
 - Radius: `rounded-lg` (icon chips, badges), `rounded-xl` (buttons), `rounded-2xl` (cards), `rounded-full` (pills)

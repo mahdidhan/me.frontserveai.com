@@ -14,7 +14,7 @@ export function Projects() {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="border-y border-white/5 bg-[#0c0c14]/50 py-24"
+      className="border-y border-white/5 bg-band/50 py-24"
     >
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <MotionWrapper>

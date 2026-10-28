@@ -3,40 +3,57 @@
 import { siteConfig } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { Download, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const sections = siteConfig.navItems.map((item) =>
-        item.href.replace("#", ""),
-      );
-      const scrollPosition = window.scrollY + 120;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(`#${sections[i]}`);
-          break;
-        }
-      }
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Scroll-spy: a section is active while it crosses a thin band near the
+  // top of the viewport, just below the fixed header. The hero is observed too
+  // so that scrolling back to the top clears the highlight.
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    const sections = ["#hero", ...siteConfig.navItems.map((item) => item.href)]
+      .map((href) => document.getElementById(href.slice(1)))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(`#${entry.target.id}`);
+        }
+      },
+      { rootMargin: "-120px 0px -70% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
 
@@ -47,7 +64,7 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-white/10 bg-[#0a0a0f]/80 backdrop-blur-xl"
+          ? "border-b border-white/10 bg-background/80 backdrop-blur-xl"
           : "bg-transparent",
       )}
     >
@@ -92,6 +109,7 @@ export function Navbar() {
         </div>
 
         <button
+          ref={toggleRef}
           type="button"
           className="inline-flex items-center justify-center rounded-lg p-2 text-zinc-300 transition-colors hover:bg-white/10 hover:text-white md:hidden"
           aria-expanded={isOpen}
@@ -110,7 +128,7 @@ export function Navbar() {
       {isOpen && (
         <div
           id="mobile-menu"
-          className="border-t border-white/10 bg-[#0a0a0f]/95 backdrop-blur-xl md:hidden"
+          className="border-t border-white/10 bg-background/95 backdrop-blur-xl md:hidden"
         >
           <ul className="flex flex-col gap-1 px-6 py-4">
             {siteConfig.navItems.map((item) => (

@@ -10,10 +10,9 @@ export const contentType = "image/png";
 
 export default async function Image() {
   const photo = await readFile(
-    join(process.cwd(), "public/profile.png"),
+    join(process.cwd(), "public/profile.jpg"),
     "base64",
   );
-  // profile.png is actually JPEG-encoded; satori trusts the declared MIME type.
   const photoSrc = `data:image/jpeg;base64,${photo}`;
 
   return new ImageResponse(

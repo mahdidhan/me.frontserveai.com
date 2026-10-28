@@ -193,6 +193,24 @@ export const portfolio: PortfolioData = {
       featured: true,
     },
   ],
+  certificationProviders: [
+    {
+      name: "DeepLearning.AI",
+      mark: "AI",
+      labels: ["DeepLearning.AI"],
+      summary:
+        "Applied AI credentials across software design, agentic systems, RAG, and prompting.",
+      accent: "cyan",
+    },
+    {
+      name: "Google / Coursera",
+      mark: "G",
+      labels: ["Google", "Coursera"],
+      summary:
+        "Project management credentials covering Agile delivery, planning, execution, and capstone work.",
+      accent: "violet",
+    },
+  ],
   certifications: [
     {
       name: "AI-Powered Software and System Design",

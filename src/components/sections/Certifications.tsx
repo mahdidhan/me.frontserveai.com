@@ -6,62 +6,14 @@ import {
   StaggerItem,
 } from "@/components/ui/MotionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import type { Certification } from "@/types/portfolio";
+import { cn } from "@/lib/utils";
+import type { Accent, Certification } from "@/types/portfolio";
 import { Award, CalendarDays, ExternalLink, ShieldCheck } from "lucide-react";
 
-const certificationGroups = [
-  {
-    provider: "DeepLearning.AI",
-    date: "June 2026",
-    summary:
-      "Applied AI credentials across software design, agentic systems, RAG, and prompting.",
-    accent: "cyan",
-  },
-  {
-    provider: "Google / Coursera",
-    date: "April 2024",
-    summary:
-      "Project management credentials covering Agile delivery, planning, execution, and capstone work.",
-    accent: "violet",
-  },
-] as const;
-
-function BrandMark({ provider }: { provider: string }) {
-  if (provider === "DeepLearning.AI") {
-    return (
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 font-mono text-sm font-semibold text-cyan-200">
-        AI
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white text-xl font-bold text-blue-500">
-      G
-    </div>
-  );
-}
-
-function ProviderPills({ provider }: { provider: string }) {
-  if (provider === "DeepLearning.AI") {
-    return (
-      <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 font-mono text-xs text-cyan-200">
-        DeepLearning.AI
-      </span>
-    );
-  }
-
-  return (
-    <>
-      <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 font-mono text-xs text-zinc-200">
-        Google
-      </span>
-      <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 font-mono text-xs text-blue-200">
-        Coursera
-      </span>
-    </>
-  );
-}
+const accentStyles: Record<Accent, string> = {
+  cyan: "border-cyan-400/20 bg-cyan-400/10 text-cyan-200",
+  violet: "border-violet-400/20 bg-violet-400/10 text-violet-200",
+};
 
 function CertificationCard({ cert }: { cert: Certification }) {
   return (
@@ -109,6 +61,20 @@ function CertificationCard({ cert }: { cert: Certification }) {
 }
 
 export function Certifications() {
+  const groups = portfolio.certificationProviders
+    .map((provider) => {
+      const certs = portfolio.certifications.filter(
+        (cert) => cert.provider === provider.name,
+      );
+      const dates = [...new Set(certs.map((cert) => cert.date))];
+      return { provider, certs, dates };
+    })
+    .filter((group) => group.certs.length > 0);
+
+  const allLabels = [
+    ...new Set(portfolio.certificationProviders.flatMap((p) => p.labels)),
+  ];
+
   return (
     <section
       id="certifications"
@@ -126,63 +92,70 @@ export function Certifications() {
         </MotionWrapper>
 
         <div className="space-y-8">
-          {certificationGroups.map((group) => {
-            const groupCertifications = portfolio.certifications.filter(
-              (cert) => cert.provider === group.provider,
-            );
-            const isCyan = group.accent === "cyan";
-
-            return (
-              <MotionWrapper key={group.provider} delay={0.1}>
-                <Card
-                  hover={false}
-                  className="overflow-hidden border-white/10 bg-[#101018]/85 p-0"
-                >
-                  <div className="border-b border-white/5 bg-white/[0.03] p-6">
-                    <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                      <div className="flex items-start gap-4">
-                        <BrandMark provider={group.provider} />
-                        <div>
-                          <div className="mb-2 flex flex-wrap gap-2">
-                            <ProviderPills provider={group.provider} />
-                          </div>
-                          <h3 className="text-xl font-semibold text-white">
-                            {group.provider}
-                          </h3>
-                          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
-                            {group.summary}
-                          </p>
-                        </div>
-                      </div>
-
+          {groups.map(({ provider, certs, dates }) => (
+            <MotionWrapper key={provider.name} delay={0.1}>
+              <Card
+                hover={false}
+                className="overflow-hidden border-white/10 bg-surface-sunken/85 p-0"
+              >
+                <div className="border-b border-white/5 bg-white/[0.03] p-6">
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-start gap-4">
                       <div
-                        className={`inline-flex shrink-0 items-center gap-2 rounded-xl border px-4 py-2 font-mono text-sm ${
-                          isCyan
-                            ? "border-cyan-400/20 bg-cyan-400/10 text-cyan-200"
-                            : "border-violet-400/20 bg-violet-400/10 text-violet-200"
-                        }`}
+                        aria-hidden
+                        className={cn(
+                          "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border font-mono text-sm font-semibold",
+                          accentStyles[provider.accent],
+                        )}
                       >
-                        <ShieldCheck className="h-4 w-4" aria-hidden />
-                        {group.date}
+                        {provider.mark}
+                      </div>
+                      <div>
+                        <div className="mb-2 flex flex-wrap gap-2">
+                          {provider.labels.map((label) => (
+                            <span
+                              key={label}
+                              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-zinc-300"
+                            >
+                              {label}
+                            </span>
+                          ))}
+                        </div>
+                        <h3 className="text-xl font-semibold text-white">
+                          {provider.name}
+                        </h3>
+                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
+                          {provider.summary}
+                        </p>
                       </div>
                     </div>
-                  </div>
 
-                  <StaggerContainer className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {groupCertifications.map((cert) => (
-                      <StaggerItem key={cert.name}>
-                        <CertificationCard cert={cert} />
-                      </StaggerItem>
-                    ))}
-                  </StaggerContainer>
-                </Card>
-              </MotionWrapper>
-            );
-          })}
+                    <div
+                      className={cn(
+                        "inline-flex shrink-0 items-center gap-2 rounded-xl border px-4 py-2 font-mono text-sm",
+                        accentStyles[provider.accent],
+                      )}
+                    >
+                      <ShieldCheck className="h-4 w-4" aria-hidden />
+                      {dates.join(" · ")}
+                    </div>
+                  </div>
+                </div>
+
+                <StaggerContainer className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {certs.map((cert) => (
+                    <StaggerItem key={cert.name}>
+                      <CertificationCard cert={cert} />
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+              </Card>
+            </MotionWrapper>
+          ))}
         </div>
 
         <MotionWrapper delay={0.2}>
-          <div className="mt-8 rounded-2xl border border-white/10 bg-gradient-to-r from-violet-500/10 via-white/[0.03] to-cyan-500/10 p-5">
+          <div className="mt-8 rounded-2xl border border-white/10 bg-linear-to-r from-violet-500/10 via-white/[0.03] to-cyan-500/10 p-5">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="font-mono text-sm uppercase tracking-widest text-violet-300">
@@ -194,15 +167,14 @@ export function Certifications() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <div className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200">
-                  DeepLearning.AI
-                </div>
-                <div className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm text-zinc-200">
-                  Google
-                </div>
-                <div className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-sm text-blue-200">
-                  Coursera
-                </div>
+                {allLabels.map((label) => (
+                  <span
+                    key={label}
+                    className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm text-zinc-200"
+                  >
+                    {label}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

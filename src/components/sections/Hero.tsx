@@ -1,4 +1,3 @@
-"use client";
 
 import { portfolio } from "@/data/portfolio";
 import { siteConfig } from "@/data/site";
@@ -34,7 +33,7 @@ export function Hero() {
           </p>
           <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
             Hi, I&apos;m{" "}
-            <span className="bg-gradient-to-r from-violet-400 via-violet-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-violet-400 via-violet-300 to-cyan-400 bg-clip-text text-transparent">
               {portfolio.name}
             </span>
           </h1>
@@ -71,11 +70,11 @@ export function Hero() {
           <div className="relative">
             <div
               aria-hidden
-              className="absolute -inset-4 rounded-full bg-gradient-to-br from-violet-500/40 to-cyan-400/30 blur-2xl"
+              className="absolute -inset-4 rounded-full bg-linear-to-br from-violet-500/40 to-cyan-400/30 blur-2xl"
             />
             <div className="relative h-64 w-64 overflow-hidden rounded-full border-2 border-white/10 shadow-2xl shadow-violet-500/20 sm:h-72 sm:w-72 lg:h-80 lg:w-80">
               <Image
-                src="/profile.png"
+                src="/profile.jpg"
                 alt={`${portfolio.name} — Software Architect`}
                 fill
                 priority

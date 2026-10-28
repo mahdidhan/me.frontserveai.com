@@ -7,7 +7,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-[#08080d]">
+    <footer className="border-t border-white/10 bg-background-deep">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 sm:flex-row lg:px-8">
         <div className="text-center sm:text-left">
           <p className="font-semibold text-white">{portfolio.name}</p>
