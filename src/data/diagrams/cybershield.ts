@@ -1,62 +1,14 @@
 /**
- * Simplified architecture of CyberShield (see `experience` in portfolio.ts),
- * drawn as the hero figure. Content (labels) is defined once; each layout
- * only supplies geometry in its own viewBox. Groups are dashed zones; nodes
- * are positioned by their centre.
- *
- * - `wide`: 680 × 530, used from the `sm` breakpoint up.
- * - `tall`: 360 × 775, used on phones, so it fits without horizontal scroll.
+ * CyberShield (see `experience` in portfolio.ts), simplified. Shown in the
+ * CyberShield case file. Content was confirmed by Mahdi; keep notes factual.
  */
-
-type Point = [number, number];
-
-interface GroupContent {
-  label: string;
-}
-
-interface NodeContent {
-  label: string;
-  detail?: string;
-  /** The one node drawn in the accent colour. */
-  emphasis?: boolean;
-}
-
-interface EdgeContent {
-  label?: string;
-  /** Draw an arrowhead at the start too. */
-  bidirectional?: boolean;
-}
-
-export interface DiagramGroup extends GroupContent {
-  id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-export interface DiagramNode extends NodeContent {
-  id: string;
-  cx: number;
-  cy: number;
-  width: number;
-  height: number;
-}
-
-export interface DiagramEdge extends EdgeContent {
-  id: string;
-  /** Polyline points; the arrowhead goes on the last one. */
-  points: Point[];
-  labelAt?: Point;
-  labelAnchor?: "start" | "middle" | "end";
-}
-
-export interface DiagramLayout {
-  viewBox: { width: number; height: number };
-  groups: DiagramGroup[];
-  nodes: DiagramNode[];
-  edges: DiagramEdge[];
-}
+import {
+  defineDiagram,
+  layout,
+  type EdgeContent,
+  type GroupContent,
+  type NodeContent,
+} from "./shared";
 
 const groupContent = {
   signals: { label: "Signals" },
@@ -70,61 +22,121 @@ const nodeContent = {
     label: "CyberShield services",
     detail: "ASP.NET Core, gRPC, Helm",
     emphasis: true,
+    kind: "Core",
+    note: "ASP.NET Core microservices that talk over gRPC, deployed to Kubernetes with a Helm chart each. I refactored the services, the database layer and the charts.",
   },
-  ingress: { label: "NGINX ingress" },
-  web: { label: "Web app", detail: "Vue 3" },
-  identity: { label: "Single sign-on", detail: "Microsoft Entra ID" },
-  sentinel: { label: "Microsoft Sentinel" },
-  defender: { label: "Microsoft Defender" },
-  mailboxes: { label: "Support mailboxes", detail: "via Microsoft Graph" },
-  sql: { label: "Azure SQL" },
-  cosmos: { label: "Cosmos DB" },
-  graph: { label: "Cosmos DB graph" },
-  bus: { label: "Azure Service Bus", detail: "RabbitMQ locally" },
-  logic: { label: "Logic Apps" },
-  registry: { label: "Container Registry" },
-  vault: { label: "Key Vault" },
-  storage: { label: "Storage account" },
-  notify: { label: "Notification Hubs" },
+  ingress: {
+    label: "NGINX ingress",
+    kind: "Edge",
+    note: "An NGINX ingress takes HTTPS traffic from the web app and routes it to the services inside the cluster.",
+  },
+  web: {
+    label: "Web app",
+    detail: "Vue 3",
+    kind: "Front end",
+    note: "CyberShield front-end v3, which I delivered in Vue 3 and TypeScript. It is where 100 internal users work incidents and tickets.",
+  },
+  identity: {
+    label: "Single sign-on",
+    detail: "Microsoft Entra ID",
+    kind: "Identity",
+    note: "Single sign-on through Microsoft Entra ID, used to reach the web app.",
+  },
+  sentinel: {
+    label: "Microsoft Sentinel",
+    kind: "Signal",
+    note: "Microsoft Sentinel incidents arrive as alerts, in real time, around the clock.",
+  },
+  defender: {
+    label: "Microsoft Defender",
+    kind: "Signal",
+    note: "Microsoft Defender incidents for 40 customer tenants arrive alongside the Sentinel feed.",
+  },
+  mailboxes: {
+    label: "Support mailboxes",
+    detail: "via Microsoft Graph",
+    kind: "Signal",
+    note: "An email listener reads support mailboxes through Microsoft Graph and turns them into tickets, stored in Cosmos DB.",
+  },
+  sql: {
+    label: "Azure SQL",
+    kind: "Data",
+    note: "Azure SQL holds the platform's relational data.",
+  },
+  cosmos: {
+    label: "Cosmos DB",
+    kind: "Data",
+    note: "Cosmos DB stores the ingested support mail and tickets.",
+  },
+  graph: {
+    label: "Cosmos DB graph",
+    kind: "Data",
+    note: "Incident entities are written to a Cosmos DB graph, so related incidents can be connected.",
+  },
+  bus: {
+    label: "Azure Service Bus",
+    detail: "RabbitMQ locally",
+    kind: "Messaging",
+    note: "Services exchange integration events over Azure Service Bus. RabbitMQ stands in for it locally.",
+  },
+  logic: {
+    label: "Logic Apps",
+    kind: "Workflow",
+    note: "Logic Apps send messages through Service Bus.",
+  },
+  registry: {
+    label: "Container Registry",
+    kind: "Shared",
+    note: "Images are pushed to Azure Container Registry and pulled automatically on deploy.",
+  },
+  vault: {
+    label: "Key Vault",
+    kind: "Shared",
+    note: "Key Vault holds the platform's secrets.",
+  },
+  storage: {
+    label: "Storage account",
+    kind: "Shared",
+    note: "A Storage account holds files.",
+  },
+  notify: {
+    label: "Notification Hubs",
+    kind: "Shared",
+    note: "Notifications go out through Notification Hubs.",
+  },
 } satisfies Record<string, NodeContent>;
 
 const edgeContent = {
-  sso: { label: "SSO" },
-  https: { label: "HTTPS" },
-  route: {},
-  signals: { label: "alerts, tickets" },
-  data: { label: "read / write" },
-  events: { label: "integration events", bidirectional: true },
-  messages: { label: "messages" },
-} satisfies Record<string, EdgeContent>;
+  sso: { label: "SSO", from: ["identity"], to: ["web"] },
+  https: { label: "HTTPS", from: ["web"], to: ["ingress"] },
+  route: { from: ["ingress"], to: ["services"] },
+  signals: {
+    label: "alerts, tickets",
+    from: ["sentinel", "defender", "mailboxes"],
+    to: ["services"],
+  },
+  data: {
+    label: "read / write",
+    from: ["services"],
+    to: ["sql", "cosmos", "graph"],
+  },
+  events: {
+    label: "integration events",
+    bidirectional: true,
+    from: ["services"],
+    to: ["bus"],
+  },
+  messages: { label: "messages", from: ["logic"], to: ["bus"] },
+} satisfies Record<string, EdgeContent<NodeId>>;
 
 type GroupId = keyof typeof groupContent;
 type NodeId = keyof typeof nodeContent;
 type EdgeId = keyof typeof edgeContent;
 
-type Box = { x: number; y: number; width: number; height: number };
-type Placement = { cx: number; cy: number; width: number; height: number };
-type Route = Omit<DiagramEdge, "id" | keyof EdgeContent>;
-
-/** Join geometry with content, in the given order (which is the draw-in order). */
-function layout(
-  viewBox: DiagramLayout["viewBox"],
-  groups: [GroupId, Box][],
-  nodes: [NodeId, Placement][],
-  edges: [EdgeId, Route][],
-): DiagramLayout {
-  return {
-    viewBox,
-    groups: groups.map(([id, box]) => ({ id, ...groupContent[id], ...box })),
-    nodes: nodes.map(([id, place]) => ({ id, ...nodeContent[id], ...place })),
-    edges: edges.map(([id, route]) => ({ id, ...edgeContent[id], ...route })),
-  };
-}
-
 const side = { width: 136, height: 44 };
 const platformWide = { width: 145, height: 36 };
 
-const wide = layout(
+const wide = layout<GroupId, NodeId, EdgeId>(
   { width: 680, height: 530 },
   [
     ["signals", { x: 10, y: 110, width: 160, height: 230 }],
@@ -228,7 +240,7 @@ const wide = layout(
 const sideTall = { width: 140, height: 44 };
 const platformTall = { width: 150, height: 34 };
 
-const tall = layout(
+const tall = layout<GroupId, NodeId, EdgeId>(
   { width: 360, height: 775 },
   [
     ["cluster", { x: 10, y: 100, width: 340, height: 162 }],
@@ -332,13 +344,45 @@ const tall = layout(
   ],
 );
 
-export const architecture = {
+export const cybershield = defineDiagram({
+  id: "cybershield",
   title: "CyberShield architecture",
   description:
     "Users sign in to a Vue 3 web app with Microsoft Entra ID single sign-on. Requests go over HTTPS through an NGINX ingress into CyberShield's ASP.NET Core services, which run on Kubernetes with a Helm chart per service and talk to each other over gRPC. Microsoft Sentinel and Defender send alerts, and an email listener reads support mailboxes through Microsoft Graph to create tickets. The services read and write Azure SQL, Cosmos DB, and a Cosmos DB graph, and exchange integration events over Azure Service Bus (RabbitMQ when running locally). Logic Apps also send messages through Service Bus. Images are pushed to Azure Container Registry and pulled automatically; secrets live in Key Vault, files in a Storage account, and notifications go out through Notification Hubs.",
+  figure: "Fig. 3",
+  name: "CyberShield, simplified",
   caption:
-    "Figure 1. CyberShield, simplified: the 24/7 platform for Microsoft Defender and Sentinel incidents and support tickets that I architect and lead.",
+    "The 24/7 platform for Microsoft Defender and Sentinel incidents and support tickets that I architect and lead at Wizard AI.",
+  traceLabel: "Trace a request",
+  groups: groupContent,
+  nodes: nodeContent,
+  edges: edgeContent,
   layouts: { wide, tall },
-};
-
-export type LayoutName = keyof typeof architecture.layouts;
+  trace: [
+    {
+      edge: "sso",
+      node: "identity",
+      text: "The user signs in with Entra ID single sign-on.",
+    },
+    {
+      edge: "https",
+      node: "web",
+      text: "The Vue 3 web app calls the API over HTTPS.",
+    },
+    {
+      edge: "route",
+      node: "ingress",
+      text: "The NGINX ingress routes the call into the cluster.",
+    },
+    {
+      edge: "events",
+      node: "services",
+      text: "The services handle it and publish an integration event to Service Bus.",
+    },
+  ],
+  traceDone: {
+    edge: "events",
+    node: "bus",
+    text: "The event lands on Service Bus, where other services pick it up. That is one request, end to end.",
+  },
+});

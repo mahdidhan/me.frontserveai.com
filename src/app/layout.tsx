@@ -1,6 +1,8 @@
+import { CommandPalette } from "@/components/layout/CommandPalette";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { jsonLd, siteConfig } from "@/data/site";
+import { themeScript } from "@/lib/theme";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
@@ -55,8 +57,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${archivo.variable} h-full`}>
+    // suppressHydrationWarning: themeScript may set data-theme before React
+    // hydrates, which is expected.
+    <html
+      lang="en"
+      className={`${archivo.variable} h-full`}
+      suppressHydrationWarning
+    >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -74,6 +83,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CommandPalette />
         <Analytics />
         <SpeedInsights />
       </body>

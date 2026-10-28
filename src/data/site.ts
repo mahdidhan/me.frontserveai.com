@@ -4,10 +4,15 @@ export const siteConfig = {
   name: "Mahdi Hamed",
   title: "Mahdi Hamed - Portfolio",
   description:
-    "Software Architect with 5+ years designing enterprise SaaS, cloud-native, and AI-enabled solutions. Azure, ASP.NET Core, React, Vue.js, Flutter.",
+    "Founder & CEO of FrontServe AI, a voice order-taker for cafés and restaurants that understands Arabic and English. Software Architect with 5+ years building enterprise SaaS on Azure and ASP.NET Core.",
   url: "https://me.frontserveai.com",
   resumePath: "/Mahdi-Hamed-Resume.pdf",
   keywords: [
+    "FrontServe AI",
+    "Founder",
+    "AI Engineer",
+    "LLM",
+    "Voice AI",
     "Software Architect",
     "Cloud Solutions Engineer",
     "Azure",
@@ -24,8 +29,8 @@ export const siteConfig = {
     { label: "About", href: "#about" },
     { label: "Experience", href: "#experience" },
     { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Certifications", href: "#certifications" },
+    { label: "Stack", href: "#stack" },
+    { label: "Credentials", href: "#credentials" },
     { label: "Contact", href: "#contact" },
   ],
   social: {
@@ -36,7 +41,9 @@ export const siteConfig = {
   },
 } as const;
 
-const currentJob = portfolio.experience[0];
+const currentJobs = portfolio.experience.filter((job) =>
+  job.period.includes("Present"),
+);
 
 /** schema.org Person, built from portfolio data so it never drifts from the page. */
 export const jsonLd = {
@@ -53,16 +60,19 @@ export const jsonLd = {
     addressLocality: "Amman",
     addressCountry: "JO",
   },
-  worksFor: {
+  worksFor: currentJobs.map((job) => ({
     "@type": "Organization",
     // "Wizard AI (part of Wizard Group, UK)" -> "Wizard AI"
-    name: currentJob.company.split(" (")[0],
-  },
+    name: job.company.split(" (")[0],
+  })),
   alumniOf: portfolio.education.map((edu) => ({
     "@type": "CollegeOrUniversity",
     name: edu.institution,
   })),
-  knowsAbout: portfolio.skills.flatMap((category) => category.skills),
+  // "Kubernetes, Helm" -> "Kubernetes", "Helm"
+  knowsAbout: portfolio.stack.flatMap((tier) =>
+    tier.items.flatMap((item) => item.name.split(/,\s*| and /)),
+  ),
   knowsLanguage: portfolio.languages.map((language) => language.name),
   sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
 };

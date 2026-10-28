@@ -2,39 +2,90 @@
 
 /*
  * "Drafting film": cool paper, blue-black ink, one cobalt accent.
- * Dark mode is "blueprint at night" and follows the OS setting.
+ * Dark mode is "blueprint at night". It follows the OS setting unless the
+ * visitor picks a theme, which sets data-theme on <html> (see layout.tsx).
  */
 :root {
   --paper: #f3f5f4;
   --paper-raised: #fbfcfc;
+  --paper-band: #e9edec;
   --ink: #16202b;
   --graphite: #5b6672;
   --rule: #d3d9dd;
   --cobalt: #1f4fd1;
   --cobalt-ink: #ffffff;
+  --cobalt-wash: #e3eafb;
   --grid-dot: #c9d0d5;
   --status: #2f8f5b;
+  --inverse: #16202b;
+  --inverse-ink: #f3f5f4;
+  --inverse-muted: #a9b3bd;
+  --inverse-rule: #2e3a47;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #0e141b;
     --paper-raised: #131b24;
+    --paper-band: #111922;
     --ink: #e6ebef;
     --graphite: #93a0ac;
     --rule: #26313c;
     --cobalt: #7fa2ff;
     --cobalt-ink: #0e141b;
+    --cobalt-wash: #1a2640;
     --grid-dot: #223040;
     --status: #5cc48a;
+    --inverse: #18222d;
+    --inverse-ink: #e6ebef;
+    --inverse-muted: #93a0ac;
+    --inverse-rule: #2b3846;
     color-scheme: dark;
+  }
+}
+
+/* Same values as above, so a manual choice wins in both directions. */
+:root[data-theme="dark"] {
+  --paper: #0e141b;
+  --paper-raised: #131b24;
+  --paper-band: #111922;
+  --ink: #e6ebef;
+  --graphite: #93a0ac;
+  --rule: #26313c;
+  --cobalt: #7fa2ff;
+  --cobalt-ink: #0e141b;
+  --cobalt-wash: #1a2640;
+  --grid-dot: #223040;
+  --status: #5cc48a;
+  --inverse: #18222d;
+  --inverse-ink: #e6ebef;
+  --inverse-muted: #93a0ac;
+  --inverse-rule: #2b3846;
+  color-scheme: dark;
+}
+
+/* `dark:` follows the OS unless data-theme overrides it. */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+  &:where([data-theme="dark"] *) {
+    @slot;
   }
 }
 
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-raised: var(--paper-raised);
+  --color-paper-band: var(--paper-band);
+  --color-cobalt-wash: var(--cobalt-wash);
+  --color-inverse: var(--inverse);
+  --color-inverse-ink: var(--inverse-ink);
+  --color-inverse-muted: var(--inverse-muted);
+  --color-inverse-rule: var(--inverse-rule);
   --color-ink: var(--ink);
   --color-graphite: var(--graphite);
   --color-rule: var(--rule);
@@ -74,6 +125,53 @@ body {
 .dot-grid {
   background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
   background-size: 16px 16px;
+}
+
+/* Square drafting grid, used behind the portrait. */
+.line-grid {
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}
+
+/*
+ * Diagram explorer (components/ui/DiagramExplorer.tsx). While a node is
+ * focused, its neighbours and edges are marked data-hot and the rest dims.
+ * Styles go on children, because the groups themselves run the draw-in.
+ */
+.diagram-explorer [data-node] {
+  cursor: pointer;
+}
+.diagram-explorer [data-node] > *,
+.diagram-explorer [data-group] > *,
+.diagram-explorer [data-edge] {
+  transition:
+    opacity 150ms,
+    stroke 150ms,
+    fill 150ms;
+}
+.diagram-explorer[data-focus] [data-node]:not([data-hot]) > *,
+.diagram-explorer[data-focus] [data-group] > * {
+  opacity: 0.3;
+}
+.diagram-explorer[data-focus] [data-edge]:not([data-hot]) {
+  opacity: 0.15;
+}
+.diagram-explorer [data-node][data-hot] > rect {
+  stroke: var(--cobalt);
+  stroke-width: 2;
+}
+.diagram-explorer [data-node][data-selected]:not([data-emphasis]) > rect {
+  fill: var(--cobalt-wash);
+}
+.diagram-explorer [data-edge][data-hot] polyline {
+  stroke: var(--cobalt);
+  stroke-width: 2;
+}
+.diagram-explorer [data-edge][data-hot] path {
+  fill: var(--cobalt);
 }
 
 /*

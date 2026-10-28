@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  openCommandPalette,
+  useShortcutLabel,
+} from "@/components/layout/CommandPalette";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { portfolio } from "@/data/portfolio";
 import { siteConfig } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -11,6 +16,7 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const shortcut = useShortcutLabel();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 8);
@@ -80,7 +86,7 @@ export function Navbar() {
           {portfolio.name}
         </a>
 
-        <ul className="hidden items-center gap-7 md:flex">
+        <ul className="hidden items-center gap-6 md:flex">
           {siteConfig.navItems.map((item) => (
             <li key={item.href}>
               <a
@@ -108,23 +114,38 @@ export function Navbar() {
               Résumé (PDF)
             </a>
           </li>
+          <li className="-ml-3 flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={openCommandPalette}
+              aria-label="Open command menu"
+              aria-keyshortcuts="Control+K Meta+K"
+              className="inline-flex h-9 items-center rounded-md border border-rule px-2.5 text-xs text-graphite transition-colors hover:border-ink hover:text-ink"
+            >
+              <kbd className="font-sans">{shortcut}</kbd>
+            </button>
+          </li>
         </ul>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className="-mr-2 inline-flex h-10 w-10 items-center justify-center rounded-md md:hidden"
-          aria-expanded={isOpen}
-          aria-controls="mobile-menu"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
-          {isOpen ? (
-            <X className="h-5 w-5" aria-hidden />
-          ) : (
-            <Menu className="h-5 w-5" aria-hidden />
-          )}
-        </button>
+        <div className="-mr-2 flex items-center md:hidden">
+          <ThemeToggle className="h-10 w-10" />
+          <button
+            ref={toggleRef}
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            {isOpen ? (
+              <X className="h-5 w-5" aria-hidden />
+            ) : (
+              <Menu className="h-5 w-5" aria-hidden />
+            )}
+          </button>
+        </div>
       </nav>
 
       {isOpen && (

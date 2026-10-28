@@ -2,97 +2,133 @@ import type { PortfolioData } from "@/types/portfolio";
 
 export const portfolio: PortfolioData = {
   name: "Mahdi Hamed",
-  title: "Software Architect and Senior .NET & Azure Engineer",
+  title: "Founder & CEO of FrontServe AI, and Software Architect",
   location: "Amman, Jordan",
+  role: "Founder & CEO, FrontServe AI",
   tagline:
-    "I design cloud platforms on Azure and lead the teams that build them, from the first architecture diagram to production.",
+    "I'm building FrontServe AI, a voice order-taker that understands Arabic and English.",
+  intro:
+    "It takes orders at the counter for cafés, bakeries, juice bars and quick-service restaurants. I'm also a Software Architect at Wizard AI, where I lead cloud platforms on Azure, based in Amman, Jordan.",
+  availability:
+    "Open to senior, lead, architect, AI engineering and cloud roles",
+  impact: [
+    { value: "ar + en", label: "orders in Arabic, English or a mix of both" },
+    { value: "2", label: "model calls per turn: understand, then reply" },
+    { value: "0", label: "prices set by the model; code sets every number" },
+    { value: "5+", label: "years building enterprise SaaS on .NET and Azure" },
+  ],
+  lede: "I build software that real businesses run on: an AI order-taker for counters in Jordan, and a 24/7 security platform for 40 customer tenants.",
   summary: [
-    "Software architect with 5+ years building enterprise SaaS on ASP.NET Core and Azure. I own the architecture and delivery of a 24/7 security operations platform that handles Microsoft Defender and Sentinel incidents in real time for 40 customer tenants and 100 internal users. I lead a distributed team of 8 engineers in the Philippines and work daily with stakeholders in the UK.",
+    "I'm the founder and CEO of FrontServe AI, an AI order-taker for cafés, bakeries, juice bars and quick-service restaurants in Jordan and the wider Arabic-speaking market. It has a public demo and is looking for its first pilot stores.",
+    "I'm also a software architect with 5+ years building enterprise SaaS on ASP.NET Core and Azure. At Wizard AI I own the architecture and delivery of CyberShield, a 24/7 security operations platform, and lead a team of 8 engineers in the Philippines.",
   ],
-  stats: [
-    { label: "Experience", value: "5+ years" },
-    { label: "Largest team led", value: "8 engineers" },
-    { label: "Focus", value: "SaaS, cloud, and AI" },
+  facts: [
+    { value: "40", label: "Customer tenants on CyberShield" },
+    { value: "8", label: "Engineers I lead at Wizard AI" },
+    { value: "−30%", label: "Deployment time after my CI/CD rebuild" },
   ],
-  skills: [
+  stack: [
     {
-      name: "Architecture",
-      skills: [
-        "Software Architecture",
-        "System Design",
-        "Clean Architecture",
-        "Microservices",
-        "SaaS Architecture",
+      name: "Daily",
+      summary: "In production at Wizard AI now",
+      items: [
+        { name: "ASP.NET Core, C#", usedIn: "CyberShield" },
+        { name: "Azure", usedIn: "CyberShield" },
+        { name: "Kubernetes, Helm", usedIn: "CyberShield" },
+        { name: "Vue 3, TypeScript", usedIn: "front-end v3" },
+        { name: "Cosmos DB, Azure SQL", usedIn: "CyberShield" },
+        { name: "Azure DevOps CI/CD", usedIn: "−30% deploy time" },
+        { name: "Entra ID, OAuth2, OpenID Connect", usedIn: "single sign-on" },
+        { name: "Defender, Sentinel", usedIn: "incident signals" },
       ],
     },
     {
-      name: "Backend",
-      skills: [
-        "ASP.NET Core",
-        "C#",
-        "Node.js",
-        "NestJS",
-        "REST APIs",
-        "SignalR",
+      name: "Shipped in production",
+      summary: "Delivered in earlier roles and client work",
+      items: [
+        { name: "React", usedIn: "support portal" },
+        { name: "Azure Cache for Redis", usedIn: "support portal" },
+        { name: "Flutter, Dart", usedIn: "~15 client apps" },
+        { name: "Node.js, NestJS", usedIn: "Awael, Automate" },
+        { name: "SQL Server, MySQL", usedIn: "Awael" },
+        { name: "Firebase", usedIn: "Awael" },
+        { name: "SignalR", usedIn: "real-time updates" },
+        { name: "Docker", usedIn: "every service" },
       ],
     },
     {
-      name: "Frontend",
-      skills: ["React", "Vue.js", "TypeScript", "JavaScript", "HTML5", "CSS3"],
-    },
-    {
-      name: "Mobile",
-      skills: ["Flutter", "Dart", "Android Deployment", "iOS Deployment"],
-    },
-    {
-      name: "Cloud",
-      skills: [
-        "Azure",
-        "Azure DevOps",
-        "CI/CD",
-        "Docker",
-        "Kubernetes",
-        "Helm Charts",
-      ],
-    },
-    {
-      name: "Databases",
-      skills: ["SQL Server", "MySQL", "Cosmos DB", "Firebase"],
-    },
-    {
-      name: "Security",
-      skills: [
-        "Microsoft Entra ID",
-        "OAuth2",
-        "OpenID Connect",
-        "IAM",
-        "Defender",
-        "Sentinel",
-      ],
-    },
-    {
-      name: "AI",
-      skills: [
-        "LLMs",
-        "RAG",
-        "Prompt Engineering",
-        "Agentic AI",
-        "Semantic Search",
+      name: "Building now",
+      summary: "On FrontServe AI, my own product",
+      items: [
+        { name: "Python, FastAPI, Pydantic", usedIn: "FrontServe AI" },
+        { name: "LLMs: Claude, GPT, Qwen", usedIn: "FrontServe AI" },
+        { name: "RAG, pgvector, hybrid search", usedIn: "FrontServe AI" },
+        { name: "Speech-to-text, text-to-speech", usedIn: "FrontServe AI" },
+        { name: "LLM evals", usedIn: "FrontServe AI" },
+        { name: "Agentic AI", usedIn: "DeepLearning.AI" },
       ],
     },
   ],
   experience: [
     {
+      company: "FrontServe AI",
+      role: "Founder & CEO",
+      period: "2026 – Present",
+      location: "Amman, Jordan",
+      scope:
+        "I founded FrontServe AI and design and build the product: an AI order-taker for counters in Jordan and the wider Arabic-speaking market.",
+      outcomes: [
+        {
+          value: "Demo",
+          label: "public demo live, looking for the first pilot stores",
+        },
+        {
+          value: "ar + en",
+          label: "spoken orders in Arabic, English or a mix of both",
+        },
+        {
+          value: "1",
+          label: "suggestion at a time, based on the owner's rules",
+        },
+      ],
+      highlights: [
+        "Designed the architecture: a FastAPI service where code drives the conversation and the order engine is the source of truth, with one model call to understand each message and one to phrase the reply.",
+        "Built hybrid menu retrieval on PostgreSQL: pgvector with bge-m3 embeddings plus pg_trgm trigram search, merged with reciprocal rank fusion.",
+        "Made models and voices swappable per store, and chose speech providers through a bake-off on real Jordanian Arabic recordings.",
+        "Set up quality checks: strict mypy, pytest, and an eval suite of YAML conversation scenarios replayed against the live model.",
+      ],
+      tech: [
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "pgvector",
+        "Claude Haiku 5.5",
+        "Next.js",
+      ],
+    },
+    {
       company: "Wizard AI (part of Wizard Group, UK)",
       role: "Software Architect",
       period: "May 2025 – Present",
       location: "Amman, Jordan",
+      scope:
+        "I own the architecture and delivery of CyberShield and lead 8 engineers in the Philippines, working daily with stakeholders in the UK.",
+      outcomes: [
+        {
+          value: "40",
+          label:
+            "customer tenants, plus 100 internal users, on a 24/7 platform",
+        },
+        {
+          value: "−30%",
+          label: "deployment time after rebuilding CI/CD in Azure DevOps",
+        },
+        { value: "60%", label: "improvement in response times" },
+      ],
       highlights: [
-        "Own the architecture and delivery of CyberShield, a 24/7 real-time platform for Microsoft Defender and Sentinel incidents and support tickets, serving 40 customer tenants and 100 internal users.",
-        "Lead and mentor a team of 8 engineers in the Philippines, working daily with stakeholders in the UK.",
         "Delivered CyberShield front-end v3 (Vue 3, TypeScript) and refactored the ASP.NET Core microservices, database layer and Helm charts.",
         "Designed Azure integrations ingesting support mailboxes into Cosmos DB and incident entities into a Cosmos DB graph.",
-        "Built CI/CD pipelines in Azure DevOps, cutting deployment time by 30% and improving response times by 60%.",
+        "Lead and mentor the team, working daily with stakeholders in the UK.",
       ],
       tech: [
         "ASP.NET Core",
@@ -108,11 +144,25 @@ export const portfolio: PortfolioData = {
       role: "Senior Full Stack Developer",
       period: "Jun 2024 – May 2025",
       location: "Amman, Jordan",
+      scope:
+        "I ran the Technical Support portal (an ASP.NET monolith with React and TypeScript), covering development, releases and support, until my promotion.",
+      outcomes: [
+        {
+          value: "Redis",
+          label:
+            "caching across the whole system, for much faster API responses",
+        },
+        {
+          value: "SQL",
+          label: "query and index tuning that removed lag across most pages",
+        },
+        {
+          value: "Entra ID",
+          label: "integrations with Microsoft security services and Azure",
+        },
+      ],
       highlights: [
-        "Managed the Technical Support portal (ASP.NET monolith, React with TypeScript), covering development, releases and support until my promotion.",
-        "Resolved lag across most pages of the portal by optimizing SQL queries and indexing, and adding server-side pagination and lazy loading.",
-        "Introduced Azure Cache for Redis and implemented caching across the whole system, making API responses significantly faster.",
-        "Built integrations with Microsoft Entra ID, Microsoft security services and Azure.",
+        "Added server-side pagination and lazy loading to the slowest pages.",
         "Contributed to CI/CD pipelines, automated deployments and testing in Azure DevOps.",
       ],
       tech: [
@@ -129,12 +179,27 @@ export const portfolio: PortfolioData = {
       role: "Software Developer",
       period: "Jul 2021 – Jun 2024",
       location: "Amman, Jordan",
+      scope:
+        "I built custom business apps for clients across mobile, web and APIs, and led a team from May 2023.",
+      outcomes: [
+        {
+          value: "~15",
+          label:
+            "business apps: e-commerce, delivery, inventory, accounting, HR",
+        },
+        {
+          value: "3",
+          label: "engineers led, running sprints, client calls and demos",
+        },
+        {
+          value: "3",
+          label: "app stores: Google Play, App Store and Huawei AppGallery",
+        },
+      ],
       highlights: [
-        "Led a team of 3 engineers from May 2023, running sprint planning, client communication and demos using Agile.",
-        "Delivered around 15 custom business apps for clients, including e-commerce, delivery, inventory, cash van sales, accounting, dashboards and HR self-service.",
-        "Built cross-platform apps in Flutter and Dart, and ASP.NET Core and Node.js APIs on SQL Server, MySQL and Firebase.",
+        "Built cross-platform apps in Flutter and Dart, with ASP.NET Core and Node.js APIs on SQL Server, MySQL and Firebase.",
         "Designed app architectures and admin portals, deployed on IIS.",
-        "Published and maintained apps on Google Play, the Apple App Store and Huawei AppGallery, including post-release support.",
+        "Handled publishing and post-release support for every app.",
       ],
       tech: [
         "Flutter",
@@ -150,43 +215,100 @@ export const portfolio: PortfolioData = {
   ],
   projects: [
     {
-      title: "CyberShield",
-      role: "Software Architect / Technical Lead",
+      title: "FrontServe AI",
+      role: "Founder & CEO",
+      period: "2026 – now",
+      ownership: "personal",
+      status: "in-progress",
       description:
-        "A 24/7 real-time platform for Microsoft Defender and Sentinel incidents and support tickets, serving 40 customer tenants and 100 internal users. I own its architecture and delivery: ASP.NET Core microservices talking over gRPC on Kubernetes, a Vue 3 front end, and data in Azure SQL, Cosmos DB and a Cosmos DB graph.",
+        "An AI order-taker for the counter at cafés, bakeries, juice bars and quick-service restaurants in Jordan and the wider Arabic-speaking market.",
+      caseStudy: {
+        summary:
+          "An AI order-taker for the counter at cafés, bakeries, juice bars and quick-service restaurants in Jordan and the wider Arabic-speaking market. Customers order out loud in Arabic, English or a mix of both, and it reads the order back before confirming.",
+        problem:
+          "Counter orders come in spoken Arabic, English or both at once, against each store's own menu, stock and prices. The model has to understand the customer, but it must never be the one deciding a price, a total or whether something is in stock.",
+        architecture: [
+          "Python 3.12 and FastAPI, with async SQLAlchemy 2 on PostgreSQL. Each store picks a model profile: Claude Haiku 5.5 by default, gpt-5-mini as fallback, or a local Qwen3 8B.",
+          "Two model calls per turn, one to understand the message and one to phrase the reply. Code drives the conversation, and the order engine sets every price, total and stock check.",
+          "Hybrid menu retrieval: pgvector with bge-m3 embeddings plus pg_trgm trigram search, merged with reciprocal rank fusion, falling back to trigram-only search.",
+        ],
+        resultsHeading: "Where it stands",
+        figureHref: "#hero",
+        outcomes: [
+          "In development, with a public demo live. Looking for its first pilot stores.",
+          "Speech providers chosen through a bake-off on real Jordanian Arabic recordings.",
+          "Strict mypy, pytest, and an eval suite of YAML conversation scenarios replayed against the live model.",
+        ],
+      },
       tech: [
-        "ASP.NET Core microservices",
+        "Python",
+        "FastAPI",
+        "PostgreSQL with pgvector",
+        "Claude Haiku 5.5",
+        "Next.js",
+        "Fly.io",
+        "Neon",
+      ],
+      website: "https://frontserveai.com",
+      demo: "https://frontserveai.com/demo",
+    },
+    {
+      title: "CyberShield",
+      role: "Software Architect and technical lead",
+      period: "2025 – now",
+      ownership: "company",
+      status: "live",
+      description:
+        "A 24/7 real-time platform for Microsoft Defender and Sentinel incidents and support tickets, serving 40 customer tenants and 100 internal users.",
+      caseStudy: {
+        problem:
+          "Security teams for 40 customer tenants need Defender and Sentinel incidents, plus support tickets from shared mailboxes, handled in one place, in real time, 24/7.",
+        architecture: [
+          "ASP.NET Core microservices talking over gRPC, on Kubernetes with Helm.",
+          "A Vue 3 and TypeScript front end (v3, which I delivered), behind Entra ID single sign-on.",
+          "Azure SQL, Cosmos DB, and a Cosmos DB graph for incident entities.",
+        ],
+        outcomes: [
+          "Deployment time down 30% with Azure DevOps pipelines.",
+          "Response times improved by 60%.",
+          "Support mailboxes ingested automatically through Microsoft Graph.",
+        ],
+        diagram: "cybershield",
+      },
+      tech: [
+        "ASP.NET Core",
         "gRPC",
         "Vue 3",
-        "Kubernetes and Helm",
+        "Kubernetes",
+        "Helm",
         "Azure Service Bus",
         "Cosmos DB",
       ],
-      featured: true,
     },
     {
-      title: "CRM & Ticketing Systems",
+      title: "CRM and Ticketing Systems",
       role: "Lead Developer",
+      ownership: "company",
       description:
-        "Delivered enterprise CRM and Ticketing solutions using ASP.NET Core and Clean Architecture, featuring customer management, workflow automation, and reporting capabilities.",
+        "Enterprise CRM and ticketing solutions built with ASP.NET Core and Clean Architecture, covering customer management, workflow automation and reporting.",
       tech: ["ASP.NET Core", "Clean Architecture", "SQL Server"],
-      featured: true,
     },
     {
       title: "First Chance",
-      role: "Founder & Product Owner",
+      role: "Founder and Product Owner",
+      ownership: "personal",
+      status: "closed",
       description:
-        "Founded and led the development of a car buying and rental platform built with Flutter and ASP.NET Core, overseeing product strategy, architecture, and deployment.",
-      tech: ["Flutter", "ASP.NET Core", "Product Strategy"],
-      featured: true,
+        "A car buying and rental mobile app I founded and led, built with Flutter and ASP.NET Core. I owned product strategy, architecture and deployment. The service has since closed.",
+      tech: ["Flutter", "ASP.NET Core"],
     },
     {
       title: "Automate",
       role: "Lead Mobile Developer",
+      ownership: "company",
       description:
-        "Developed a taxi and towing platform using Flutter and NestJS, delivering mobile applications and backend integrations.",
+        "A taxi and towing platform. I led the Flutter mobile apps and their NestJS backend integrations.",
       tech: ["Flutter", "NestJS", "REST APIs"],
-      featured: true,
     },
   ],
   certificationProviders: [

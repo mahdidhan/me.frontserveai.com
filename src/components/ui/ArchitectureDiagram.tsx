@@ -1,8 +1,5 @@
-import {
-  architecture,
-  type DiagramEdge,
-  type LayoutName,
-} from "@/data/architecture";
+import type { Diagram, LayoutName } from "@/data/diagrams";
+import type { DiagramEdge } from "@/data/diagrams/shared";
 import { cn } from "@/lib/utils";
 
 const GROUP_STAGGER = 80;
@@ -42,19 +39,29 @@ function delayStyle(ms: number) {
 /**
  * Hero figure. Server-rendered SVG; the draw-in animation is pure CSS
  * (see .diagram-* in globals.css) and is skipped under reduced motion.
+ * The data-* attributes are hooks for DiagramExplorer's highlighting.
  */
 export function ArchitectureDiagram({
+  diagram,
   layout,
+  animate = true,
   className,
 }: {
+  diagram: Diagram;
   layout: LayoutName;
+  /** Draw itself in on load. Only the hero figure should. */
+  animate?: boolean;
   className?: string;
 }) {
-  const { title, description } = architecture;
-  const { groups, nodes, edges, viewBox } = architecture.layouts[layout];
+  const { title, description } = diagram;
+  const { groups, nodes, edges, viewBox } = diagram.layouts[layout];
   const edgeStart = NODE_START + nodes.length * NODE_STAGGER + 150;
-  const titleId = `diagram-${layout}-title`;
-  const descId = `diagram-${layout}-desc`;
+  const titleId = `${diagram.id}-${layout}-title`;
+  const descId = `${diagram.id}-${layout}-desc`;
+  // Without the classes, globals.css applies no draw-in animation.
+  const nodeClass = animate ? "diagram-node" : undefined;
+  const edgeClass = animate ? "diagram-edge" : undefined;
+  const labelClass = animate ? "diagram-label" : undefined;
 
   return (
     <svg
@@ -69,7 +76,8 @@ export function ArchitectureDiagram({
       {groups.map((group, i) => (
         <g
           key={group.id}
-          className="diagram-node"
+          data-group={group.id}
+          className={nodeClass}
           style={delayStyle(i * GROUP_STAGGER)}
         >
           <rect
@@ -98,17 +106,17 @@ export function ArchitectureDiagram({
       {edges.map((edge, i) => {
         const delay = edgeStart + i * EDGE_STAGGER;
         return (
-          <g key={edge.id}>
+          <g key={edge.id} data-edge={edge.id}>
             <polyline
               points={edge.points.map((p) => p.join(",")).join(" ")}
               pathLength={1}
               fill="none"
               strokeWidth={1.25}
-              className="diagram-edge stroke-graphite"
+              className={cn(edgeClass, "stroke-graphite")}
               style={delayStyle(delay)}
             />
             <g
-              className="diagram-label"
+              className={labelClass}
               style={delayStyle(delay + EDGE_DRAW - 150)}
             >
               {arrowheads(edge).map((d) => (
@@ -138,7 +146,9 @@ export function ArchitectureDiagram({
         return (
           <g
             key={node.id}
-            className="diagram-node"
+            data-node={node.id}
+            data-emphasis={node.emphasis || undefined}
+            className={nodeClass}
             style={delayStyle(NODE_START + i * NODE_STAGGER)}
           >
             <rect
