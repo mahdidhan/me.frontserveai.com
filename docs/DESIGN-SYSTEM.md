@@ -24,7 +24,7 @@ The portfolio of a software architect should look like it was drawn by one: a te
 | `grid-dot` | `#c9d0d5` | `#223040` | Dot grid behind the hero figure (`.dot-grid`) |
 | `status` | `#2f8f5b` | `#5cc48a` | Success confirmation ("Copied") |
 
-Dark mode follows `prefers-color-scheme`. There is no manual toggle yet (see ROADMAP). Never use raw hex values or Tailwind palette colors (`zinc-*`, `violet-*`) in components. Add a token instead. `opengraph-image.tsx` is the exception, because `next/og` can't read CSS variables, so it mirrors the light values by hand.
+Dark mode follows `prefers-color-scheme`. There is no manual toggle yet (see ROADMAP). Never use raw hex values or Tailwind palette colors (`zinc-*`, `violet-*`) in components. Add a token instead. `opengraph-image.tsx` is the exception, because `next/og` can't read CSS variables, so it mirrors the light values by hand. It uses static Archivo instances from `assets/fonts` (Expanded Bold for the name, Regular for the rest); regenerate them with fontTools' `varLib.instancer` + `subset` if new glyphs are needed.
 
 Both themes pass WCAG AA for body text. In light mode, `graphite` on `paper` is 5.3:1, `cobalt` on `paper` is 6.2:1, and text on `cobalt` is 6.8:1. In dark mode the same pairs are 6.9:1, 7.5:1, and 7.5:1.
 
@@ -61,7 +61,7 @@ Section order: Hero, About, Experience, Projects, Skills, Certifications, Educat
 |---|---|
 | `Section` | Section shell described above. Always use it for new sections. |
 | `Button` | `primary` (ink fill, turns cobalt on hover) or `secondary` (outlined). Sizes `md`/`lg`. Renders `<a>` when `href` is set, and forwards all props. |
-| `ArchitectureDiagram` | Server-rendered SVG from `src/data/architecture.ts` (viewBox 680×530). Dashed `groups` are zones (Signals, Kubernetes, Data, Shared Azure services); `nodes` may omit `detail`; `edges` can be `bidirectional`. Edge labels have a paper-colored halo (`paint-order: stroke`) so they stay legible over borders. The emphasis node is cobalt. On phones it keeps `min-w-[34rem]` and scrolls inside its frame. |
+| `ArchitectureDiagram` | Server-rendered SVG from `src/data/architecture.ts`, with a `layout` prop: `wide` (680×530, shown from `sm`) and `tall` (360×775, phones, no horizontal scroll). The Hero renders both and toggles them with `hidden sm:block` / `sm:hidden`. Labels live once in `nodeContent`/`groupContent`/`edgeContent`; each layout only supplies geometry. Dashed `groups` are zones (Signals, Kubernetes, Data, Shared Azure services); `nodes` may omit `detail`; `edges` can be `bidirectional`. Edge labels have a paper-colored halo (`paint-order: stroke`) so they stay legible over borders. The emphasis node is cobalt. |
 | Text links | `text-cobalt underline-offset-4 hover:underline`, or for quiet links `underline decoration-rule hover:text-cobalt hover:decoration-cobalt`. |
 
 ## Motion

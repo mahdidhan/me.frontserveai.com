@@ -60,7 +60,7 @@ src/
 │   └── ui/                 # Section shell, Button, ArchitectureDiagram
 ├── data/
 │   ├── portfolio.ts        # All portfolio content (from CV)
-│   ├── architecture.ts     # Hero diagram nodes and edges
+│   ├── architecture.ts     # Hero diagram content + wide/tall layouts
 │   └── site.ts             # Site config, SEO, social links
 ├── lib/
 │   └── utils.ts            # cn() utility (clsx + tailwind-merge)

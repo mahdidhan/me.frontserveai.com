@@ -46,8 +46,8 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 - [x] 404 and share image restyled to match.
 - [x] Hero diagram redrawn as CyberShield from Mahdi's description: Entra ID single sign-on, NGINX ingress, gRPC services with Helm, Sentinel/Defender/Graph mail signals, Azure SQL and Cosmos DB (plus graph), Service Bus (RabbitMQ locally) with Logic Apps, and Container Registry, Key Vault, Storage and Notification Hubs.
 - [x] Projects section renamed to CyberShield to match the experience and the diagram.
-- [ ] Phone-width diagram: it currently scrolls horizontally inside its frame. Consider a vertical layout variant below `sm`.
-- [ ] Load Archivo into `opengraph-image.tsx` (a TTF via `readFile`) so the share card uses the site's typeface.
+- [x] Phone diagram: a dedicated tall layout below `sm` that fits at full size with no horizontal scroll.
+- [x] Share image uses Archivo (static Expanded Bold + Regular instances in `assets/fonts`, OFL).
 - [ ] View Transitions for future multi-page routes (`<ViewTransition>`; check the Next 16 docs).
 
 ## 5. Performance / SEO

@@ -8,11 +8,16 @@ export const alt = `${portfolio.name} — ${portfolio.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// next/og (satori) can't use variable fonts, so assets/fonts holds static,
+// Latin-subset instances of Archivo (wdth 125 / wght 700 and wdth 100 / wght 400).
+const fontPath = (file: string) => join(process.cwd(), "assets/fonts", file);
+
 export default async function Image() {
-  const photo = await readFile(
-    join(process.cwd(), "public/profile.jpg"),
-    "base64",
-  );
+  const [photo, expandedBold, regular] = await Promise.all([
+    readFile(join(process.cwd(), "public/profile.jpg"), "base64"),
+    readFile(fontPath("Archivo-ExpandedBold.ttf")),
+    readFile(fontPath("Archivo-Regular.ttf")),
+  ]);
   const photoSrc = `data:image/jpeg;base64,${photo}`;
 
   return new ImageResponse(
@@ -27,16 +32,26 @@ export default async function Image() {
           padding: "0 96px",
           // Mirrors the "drafting film" tokens in globals.css (next/og can't read CSS vars).
           backgroundColor: "#f3f5f4",
-          backgroundImage: "radial-gradient(#c9d0d5 1.5px, transparent 1.5px)",
-          backgroundSize: "24px 24px",
           color: "#16202b",
+          fontFamily: "Archivo",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", maxWidth: 680 }}>
-          <div style={{ fontSize: 88, fontWeight: 700, lineHeight: 1, letterSpacing: -2 }}>
-            {portfolio.name}
+        <div style={{ display: "flex", flexDirection: "column", maxWidth: 640 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              fontFamily: "Archivo Expanded",
+              fontSize: 104,
+              lineHeight: 0.95,
+              letterSpacing: -2,
+            }}
+          >
+            {portfolio.name.split(" ").map((word) => (
+              <span key={word}>{word}</span>
+            ))}
           </div>
-          <div style={{ marginTop: 20, fontSize: 34, color: "#16202b" }}>
+          <div style={{ marginTop: 32, fontSize: 32, lineHeight: 1.25 }}>
             {portfolio.title}
           </div>
           <div
@@ -47,7 +62,7 @@ export default async function Image() {
               backgroundColor: "#1f4fd1",
             }}
           />
-          <div style={{ marginTop: 32, fontSize: 26, color: "#5b6672" }}>
+          <div style={{ marginTop: 28, fontSize: 26, color: "#5b6672" }}>
             {siteConfig.url.replace("https://", "")}
           </div>
         </div>
@@ -67,6 +82,12 @@ export default async function Image() {
         />
       </div>
     ),
-    size,
+    {
+      ...size,
+      fonts: [
+        { name: "Archivo Expanded", data: expandedBold, weight: 700, style: "normal" },
+        { name: "Archivo", data: regular, weight: 400, style: "normal" },
+      ],
+    },
   );
 }

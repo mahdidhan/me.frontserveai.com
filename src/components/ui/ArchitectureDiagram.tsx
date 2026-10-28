@@ -1,9 +1,13 @@
-import { architecture, type DiagramEdge } from "@/data/architecture";
+import {
+  architecture,
+  type DiagramEdge,
+  type LayoutName,
+} from "@/data/architecture";
+import { cn } from "@/lib/utils";
 
 const GROUP_STAGGER = 80;
 const NODE_START = 250;
 const NODE_STAGGER = 55;
-const EDGE_START = NODE_START + architecture.nodes.length * NODE_STAGGER + 150;
 const EDGE_STAGGER = 120;
 const EDGE_DRAW = 600;
 
@@ -39,18 +43,28 @@ function delayStyle(ms: number) {
  * Hero figure. Server-rendered SVG; the draw-in animation is pure CSS
  * (see .diagram-* in globals.css) and is skipped under reduced motion.
  */
-export function ArchitectureDiagram() {
-  const { groups, nodes, edges, title, description, viewBox } = architecture;
+export function ArchitectureDiagram({
+  layout,
+  className,
+}: {
+  layout: LayoutName;
+  className?: string;
+}) {
+  const { title, description } = architecture;
+  const { groups, nodes, edges, viewBox } = architecture.layouts[layout];
+  const edgeStart = NODE_START + nodes.length * NODE_STAGGER + 150;
+  const titleId = `diagram-${layout}-title`;
+  const descId = `diagram-${layout}-desc`;
 
   return (
     <svg
       viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
       role="img"
-      aria-labelledby="diagram-title diagram-desc"
-      className="h-auto w-full min-w-[34rem]"
+      aria-labelledby={`${titleId} ${descId}`}
+      className={cn("h-auto w-full", className)}
     >
-      <title id="diagram-title">{title}</title>
-      <desc id="diagram-desc">{description}</desc>
+      <title id={titleId}>{title}</title>
+      <desc id={descId}>{description}</desc>
 
       {groups.map((group, i) => (
         <g key={group.id} className="diagram-node" style={delayStyle(i * GROUP_STAGGER)}>
@@ -78,7 +92,7 @@ export function ArchitectureDiagram() {
       ))}
 
       {edges.map((edge, i) => {
-        const delay = EDGE_START + i * EDGE_STAGGER;
+        const delay = edgeStart + i * EDGE_STAGGER;
         return (
           <g key={edge.id}>
             <polyline

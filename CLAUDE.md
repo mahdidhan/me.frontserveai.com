@@ -37,17 +37,19 @@ Shell is Windows (PowerShell / Git Bash), so use forward-slash paths in scripts.
 ```
 src/app/            layout.tsx (fonts, metadata, JSON-LD, Navbar/Footer), page.tsx (composes sections),
                     globals.css (tokens), loading.tsx, not-found.tsx, sitemap.ts, robots.ts, favicon.ico,
-                    opengraph-image.tsx (next/og share card; also used for twitter:image)
+                    opengraph-image.tsx (next/og share card; also used for twitter:image; fonts from assets/fonts)
 src/components/
   layout/           Navbar (client: scroll-spy + mobile menu), Footer
   sections/         Hero, About, Experience, Projects, Skills, Certifications, Education (+ languages), Contact
   ui/               Section (spec-sheet section shell), Button, ArchitectureDiagram (hero SVG figure)
 src/data/
   portfolio.ts      ALL CV content (typed as PortfolioData)
-  architecture.ts   groups/nodes/edges for the hero diagram (CyberShield, confirmed by Mahdi)
+  architecture.ts   hero diagram (CyberShield, confirmed by Mahdi): labels defined once, plus two layouts,
+                    `wide` (sm and up) and `tall` (phones). A new node needs a position in BOTH layouts.
   site.ts           siteConfig (url, SEO, navItems, social links, resume path) + jsonLd (built from portfolio data)
 src/types/portfolio.ts  content interfaces
 public/             profile.jpg, Mahdi-Hamed-Resume.pdf
+assets/fonts/       static Latin-subset Archivo TTFs for next/og (satori can't read variable fonts) + OFL.txt
 ```
 
 Key data flow: **content lives in `src/data/`, components only render it.** Sections import `portfolio` / `siteConfig` directly; there are no props between `page.tsx` and sections.

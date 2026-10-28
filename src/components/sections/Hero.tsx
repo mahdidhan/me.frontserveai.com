@@ -46,8 +46,9 @@ export function Hero() {
         </div>
 
         <figure className="min-w-0">
-          <div className="dot-grid -mx-4 overflow-x-auto rounded-lg border border-rule px-4 py-6 sm:mx-0 sm:px-6">
-            <ArchitectureDiagram />
+          <div className="dot-grid rounded-lg border border-rule px-3 py-5 sm:px-6 sm:py-6">
+            <ArchitectureDiagram layout="tall" className="sm:hidden" />
+            <ArchitectureDiagram layout="wide" className="hidden sm:block" />
           </div>
           <figcaption className="mt-3 max-w-[60ch] text-sm text-graphite">
             {architecture.caption}
