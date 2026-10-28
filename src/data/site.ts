@@ -38,7 +38,7 @@ export const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: siteConfig.name,
-  jobTitle: "Software Architect & Cloud Solutions Engineer",
+  jobTitle: "Software Architect and Senior .NET & Azure Engineer",
   url: siteConfig.url,
   email: siteConfig.social.email,
   address: {

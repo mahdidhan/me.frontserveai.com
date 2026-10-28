@@ -2,13 +2,12 @@ import type { PortfolioData } from "@/types/portfolio";
 
 export const portfolio: PortfolioData = {
   name: "Mahdi Hamed",
-  title: "Software Architect & Cloud Solutions Engineer",
+  title: "Software Architect and Senior .NET & Azure Engineer",
   location: "Amman, Jordan",
   tagline:
     "I design cloud platforms on Azure and lead the teams that build them, from the first architecture diagram to production.",
   summary: [
-    "Software Architect with 5+ years of experience designing and delivering enterprise SaaS, cloud-native, and AI-enabled solutions. Experienced in software architecture, microservices, Azure cloud technologies, DevOps, and technical leadership, with a proven track record of leading engineering teams and delivering scalable business platforms across multiple industries.",
-    "Specialized in ASP.NET Core, Azure, React, Vue.js, Flutter, and distributed systems architecture. Experienced in designing secure multi-tenant platforms, implementing CI/CD pipelines, optimizing application performance, and building AI-powered solutions leveraging LLMs, Retrieval-Augmented Generation (RAG), Semantic Search, and Agentic AI workflows.",
+    "Software architect with 5+ years building enterprise SaaS on ASP.NET Core and Azure. I own the architecture and delivery of a 24/7 security operations platform that handles Microsoft Defender and Sentinel incidents in real time for 40 customer tenants and 100 internal users. I lead a distributed team of 8 engineers in the Philippines and work daily with stakeholders in the UK.",
   ],
   stats: [
     { label: "Experience", value: "5+ years" },
