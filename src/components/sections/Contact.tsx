@@ -23,7 +23,7 @@ export function Contact() {
     { label: "Phone", value: phone, href: `tel:${phone.replace(/\s/g, "")}` },
     {
       label: "LinkedIn",
-      value: "mahdi-hamed-4942b81b3",
+      value: "mahdihamed",
       href: linkedin,
       external: true,
     },

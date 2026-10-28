@@ -29,7 +29,7 @@ export const siteConfig = {
   social: {
     email: "mahdidhan@gmail.com",
     phone: "+962 78 271 3481",
-    linkedin: "https://www.linkedin.com/in/mahdi-hamed-4942b81b3",
+    linkedin: "https://www.linkedin.com/in/mahdihamed",
     github: "https://github.com/mahdidhan",
   },
 } as const;
