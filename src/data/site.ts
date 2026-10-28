@@ -1,3 +1,5 @@
+import { portfolio } from "@/data/portfolio";
+
 export const siteConfig = {
   name: "Mahdi Hamed",
   title: "Mahdi Hamed - Portfolio",
@@ -34,17 +36,33 @@ export const siteConfig = {
   },
 } as const;
 
+const currentJob = portfolio.experience[0];
+
+/** schema.org Person, built from portfolio data so it never drifts from the page. */
 export const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: siteConfig.name,
-  jobTitle: "Software Architect and Senior .NET & Azure Engineer",
+  name: portfolio.name,
+  jobTitle: portfolio.title,
+  description: portfolio.summary[0],
   url: siteConfig.url,
-  email: siteConfig.social.email,
+  image: `${siteConfig.url}/profile.jpg`,
+  email: `mailto:${portfolio.contact.email}`,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Amman",
-    addressCountry: "Jordan",
+    addressCountry: "JO",
   },
+  worksFor: {
+    "@type": "Organization",
+    // "Wizard AI (part of Wizard Group, UK)" -> "Wizard AI"
+    name: currentJob.company.split(" (")[0],
+  },
+  alumniOf: portfolio.education.map((edu) => ({
+    "@type": "CollegeOrUniversity",
+    name: edu.institution,
+  })),
+  knowsAbout: portfolio.skills.flatMap((category) => category.skills),
+  knowsLanguage: portfolio.languages.map((language) => language.name),
   sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
 };

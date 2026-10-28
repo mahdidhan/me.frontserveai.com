@@ -34,7 +34,7 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 - [ ] Contact form (Server Action + Resend/email service), or a "book a call" link.
 - [ ] Blog / writing section using MDX for architecture and AI articles. This needs routes beyond the single page.
 - [ ] Case-study pages per project (`app/projects/[slug]/page.tsx`). Remember that `params` is async in Next 16.
-- [ ] Analytics: `@vercel/analytics` and `@vercel/speed-insights`.
+- [x] Vercel Analytics and Speed Insights added. Turn both on in the Vercel dashboard (Project → Analytics / Speed Insights).
 - [ ] i18n: Arabic version with RTL (Mahdi lists Arabic as a language). Archivo has no Arabic glyphs, so pair it with an Arabic family.
 - [ ] Testimonials / recommendations section.
 
@@ -52,9 +52,9 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 
 ## 5. Performance / SEO
 
-- [ ] Verify Lighthouse ≥ 95 on all categories. framer-motion is gone, so Navbar and Contact are the only client JS.
+- [x] Lighthouse: mobile 96/100/96/100, desktop 100/100/96/100. Fixed a 0.17 layout shift (hero name rewrapping when Archivo replaced the fallback) and removed the unused IBM Plex Mono. Best practices sits at 96 locally only because the Vercel analytics scripts 404 off-Vercel.
 - [x] `alternates.canonical` added to the metadata.
-- [ ] Enrich JSON-LD (`knowsAbout`, `alumniOf`, `worksFor`) from `portfolio.ts` instead of duplicating it.
+- [x] JSON-LD is built from `portfolio.ts`: jobTitle, description, image, worksFor, alumniOf, knowsAbout, knowsLanguage.
 - [ ] Generate the resume PDF's metadata/title, or link a web resume page.
 
 ## Decisions

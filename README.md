@@ -9,7 +9,8 @@ Built with Next.js (App Router), TypeScript, Tailwind CSS, and Lucide React. Opt
 - **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **Fonts:** Archivo (variable width) and IBM Plex Mono via next/font
+- **Font:** Archivo (variable width) via next/font
+- **Analytics:** Vercel Analytics and Speed Insights (enable both in the Vercel project)
 - **Icons:** Lucide React
 
 ## Getting Started

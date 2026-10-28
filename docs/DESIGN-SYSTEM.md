@@ -30,7 +30,7 @@ Both themes pass WCAG AA for body text. In light mode, `graphite` on `paper` is 
 
 ## Typography
 
-One family, **Archivo** (variable `wght` 100–900 and `wdth` 62–125), with **IBM Plex Mono** only for data like IDs. Width is the expressive axis:
+One family, **Archivo** (variable `wght` 100–900 and `wdth` 62–125). Width is the expressive axis. Fallback fonts can't do width, so keep above-the-fold wide text from wrapping differently in the fallback (the hero name is forced to one word per line):
 
 | Role | Classes |
 |---|---|

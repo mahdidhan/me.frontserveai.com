@@ -165,10 +165,12 @@ export const portfolio: PortfolioData = {
       title: "CyberShield",
       role: "Software Architect / Technical Lead",
       description:
-        "Designed and led the development of an enterprise incident management platform integrated with Microsoft Sentinel, Microsoft Entra ID, and Azure cloud services.",
+        "A 24/7 real-time platform for Microsoft Defender and Sentinel incidents and support tickets, serving 40 customer tenants and 100 internal users. I own its architecture and delivery: ASP.NET Core microservices talking over gRPC on Kubernetes, a Vue 3 front end, and data in Azure SQL, Cosmos DB and a Cosmos DB graph.",
       tech: [
-        "ASP.NET Core Microservices",
-        "Vue.js",
+        "ASP.NET Core microservices",
+        "gRPC",
+        "Vue 3",
+        "Kubernetes and Helm",
         "Azure Service Bus",
         "Cosmos DB",
       ],

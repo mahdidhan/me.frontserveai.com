@@ -12,7 +12,8 @@ Related docs (read when relevant):
 
 - **Next.js 16.2** (App Router, Turbopack) + **React 19.2** + **TypeScript 5** (strict)
 - **Tailwind CSS v4** via `@tailwindcss/postcss` — CSS-first config in `src/app/globals.css` (`@theme inline`); there is **no `tailwind.config.*`**
-- **Fonts:** Archivo (variable, with the `wdth` axis; use `font-stretch-*`) and IBM Plex Mono, via `next/font/google`
+- **Font:** Archivo only (variable, with the `wdth` axis; use `font-stretch-*`), via `next/font/google`. The fallback font can't do the width axis, so wide text that wraps differently in the fallback causes layout shift. That's why the hero name is split into one word per line.
+- **Vercel Analytics + Speed Insights** (`<Analytics />`, `<SpeedInsights />` in layout). Their scripts 404 locally; that's expected.
 - **No animation library.** The only motion is the hero diagram's CSS draw-in (`.diagram-*` in `globals.css`).
 - **lucide-react** for small UI icons (download, menu, external link, copy)
 - `clsx` + `tailwind-merge` via `cn()` in `src/lib/utils.ts`
@@ -44,7 +45,7 @@ src/components/
 src/data/
   portfolio.ts      ALL CV content (typed as PortfolioData)
   architecture.ts   groups/nodes/edges for the hero diagram (CyberShield, confirmed by Mahdi)
-  site.ts           siteConfig (url, SEO, navItems, social links, resume path) + jsonLd
+  site.ts           siteConfig (url, SEO, navItems, social links, resume path) + jsonLd (built from portfolio data)
 src/types/portfolio.ts  content interfaces
 public/             profile.jpg, Mahdi-Hamed-Resume.pdf
 ```
@@ -75,7 +76,7 @@ This is newer than most training data. Before using any Next API, read `node_mod
 
 ## Verification
 
-There are no tests. After changes, run `npm run lint` and `npm run build`, and spot-check `npm run dev` at mobile (~375px) and desktop widths, in **both light and dark** color schemes. Check keyboard focus rings and the reduced-motion behavior.
+There are no tests. Last Lighthouse run (2026-10-28, local prod build): mobile 96/100/96/100, desktop 100/100/96/100 (perf/a11y/best-practices/SEO). After changes, run `npm run lint` and `npm run build`, and spot-check `npm run dev` at mobile (~375px) and desktop widths, in **both light and dark** color schemes. Check keyboard focus rings and the reduced-motion behavior.
 Screenshots: headless Chrome (`chrome.exe --headless=new --screenshot=… --window-size=W,H --blink-settings=preferredColorScheme=1|0`, plus a throwaway `--user-data-dir`). Chrome won't go below ~500px wide on Windows, so test phone widths by loading the page in a 390px `<iframe>`.
 
 ## Identity / domain

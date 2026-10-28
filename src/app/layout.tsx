@@ -1,21 +1,16 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { jsonLd, siteConfig } from "@/data/site";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
   axes: ["wdth"],
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: "400",
   display: "swap",
 });
 
@@ -62,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${plexMono.variable} h-full`}
+      className={`${archivo.variable} h-full`}
     >
       <head>
         <script
@@ -82,6 +77,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

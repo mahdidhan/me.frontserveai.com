@@ -14,7 +14,13 @@ export function Hero() {
             id="hero-heading"
             className="text-[clamp(3.25rem,9vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em] font-stretch-125%"
           >
-            {portfolio.name}
+            {/* One word per line, so the fallback font (which can't do the
+                125% width) wraps the same way as Archivo: no layout shift. */}
+            {portfolio.name.split(" ").map((word) => (
+              <span key={word} className="block">
+                {word}{" "}
+              </span>
+            ))}
           </h1>
           <p className="mt-8 max-w-[30ch] text-xl leading-snug sm:text-2xl">
             {portfolio.tagline}

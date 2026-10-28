@@ -43,7 +43,6 @@
   --color-grid-dot: var(--grid-dot);
   --color-status: var(--status);
   --font-sans: var(--font-archivo);
-  --font-mono: var(--font-plex-mono);
 }
 
 html {
