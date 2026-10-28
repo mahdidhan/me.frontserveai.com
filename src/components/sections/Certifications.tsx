@@ -26,7 +26,9 @@ export function Certifications() {
                 {certs.length} certificates, {dates.join(" and ")}
               </p>
             </div>
-            <p className="mt-2 max-w-[65ch] text-graphite">{provider.summary}</p>
+            <p className="mt-2 max-w-[65ch] text-graphite">
+              {provider.summary}
+            </p>
 
             <ul className="mt-5 divide-y divide-rule border-y border-rule">
               {certs.map((cert) => (

@@ -8,11 +8,11 @@ import { Download } from "lucide-react";
 export function Hero() {
   return (
     <section id="hero" aria-labelledby="hero-heading">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-x-16 gap-y-14 px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.25fr)] lg:px-8 lg:pb-28 lg:pt-40">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-x-16 gap-y-14 px-4 pt-32 pb-20 sm:px-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.25fr)] lg:px-8 lg:pt-40 lg:pb-28">
         <div>
           <h1
             id="hero-heading"
-            className="text-[clamp(3.25rem,9vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em] font-stretch-125%"
+            className="text-[clamp(3.25rem,9vw,6rem)] leading-[0.95] font-bold tracking-[-0.02em] font-stretch-125%"
           >
             {/* One word per line, so the fallback font (which can't do the
                 125% width) wraps the same way as Archivo: no layout shift. */}

@@ -9,7 +9,12 @@ function groupByCompany(jobs: Job[]) {
   for (const job of jobs) {
     const last = groups.at(-1);
     if (last?.company === job.company) last.roles.push(job);
-    else groups.push({ company: job.company, location: job.location, roles: [job] });
+    else
+      groups.push({
+        company: job.company,
+        location: job.location,
+        roles: [job],
+      });
   }
   return groups;
 }
@@ -35,13 +40,13 @@ export function Experience() {
                     <span
                       aria-hidden
                       className={cn(
-                        "absolute left-[-4.5px] top-2 h-2 w-2 rounded-full",
+                        "absolute top-2 left-[-4.5px] h-2 w-2 rounded-full",
                         isCurrent ? "bg-cobalt" : "bg-graphite",
                       )}
                     />
                     <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                       <h4 className="text-lg font-semibold">{job.role}</h4>
-                      <p className="text-sm tabular-nums text-graphite">
+                      <p className="text-sm text-graphite tabular-nums">
                         {job.period}
                       </p>
                     </div>

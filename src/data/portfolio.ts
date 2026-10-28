@@ -38,23 +38,11 @@ export const portfolio: PortfolioData = {
     },
     {
       name: "Frontend",
-      skills: [
-        "React",
-        "Vue.js",
-        "TypeScript",
-        "JavaScript",
-        "HTML5",
-        "CSS3",
-      ],
+      skills: ["React", "Vue.js", "TypeScript", "JavaScript", "HTML5", "CSS3"],
     },
     {
       name: "Mobile",
-      skills: [
-        "Flutter",
-        "Dart",
-        "Android Deployment",
-        "iOS Deployment",
-      ],
+      skills: ["Flutter", "Dart", "Android Deployment", "iOS Deployment"],
     },
     {
       name: "Cloud",

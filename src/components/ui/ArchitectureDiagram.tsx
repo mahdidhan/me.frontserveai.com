@@ -67,7 +67,11 @@ export function ArchitectureDiagram({
       <desc id={descId}>{description}</desc>
 
       {groups.map((group, i) => (
-        <g key={group.id} className="diagram-node" style={delayStyle(i * GROUP_STAGGER)}>
+        <g
+          key={group.id}
+          className="diagram-node"
+          style={delayStyle(i * GROUP_STAGGER)}
+        >
           <rect
             x={group.x}
             y={group.y}
@@ -103,7 +107,10 @@ export function ArchitectureDiagram({
               className="diagram-edge stroke-graphite"
               style={delayStyle(delay)}
             />
-            <g className="diagram-label" style={delayStyle(delay + EDGE_DRAW - 150)}>
+            <g
+              className="diagram-label"
+              style={delayStyle(delay + EDGE_DRAW - 150)}
+            >
               {arrowheads(edge).map((d) => (
                 <path key={d} d={d} className="fill-graphite" />
               ))}

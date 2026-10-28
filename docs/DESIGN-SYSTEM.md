@@ -12,17 +12,17 @@ The portfolio of a software architect should look like it was drawn by one: a te
 
 ## Color tokens (`src/app/globals.css`)
 
-| Token | Light | Dark | Use |
-|---|---|---|---|
-| `paper` | `#f3f5f4` | `#0e141b` | Page background |
-| `paper-raised` | `#fbfcfc` | `#131b24` | Diagram node fill |
-| `ink` | `#16202b` | `#e6ebef` | Primary text, primary button fill, node outlines |
-| `graphite` | `#5b6672` | `#93a0ac` | Secondary text, meta, diagram edges |
-| `rule` | `#d3d9dd` | `#26313c` | Hairlines, dividers, list markers |
-| `cobalt` | `#1f4fd1` | `#7fa2ff` | **Interactive only:** links, active nav, current-role dot, focus ring, diagram focal node |
-| `cobalt-ink` | `#ffffff` | `#0e141b` | Text on cobalt |
-| `grid-dot` | `#c9d0d5` | `#223040` | Dot grid behind the hero figure (`.dot-grid`) |
-| `status` | `#2f8f5b` | `#5cc48a` | Success confirmation ("Copied") |
+| Token          | Light     | Dark      | Use                                                                                       |
+| -------------- | --------- | --------- | ----------------------------------------------------------------------------------------- |
+| `paper`        | `#f3f5f4` | `#0e141b` | Page background                                                                           |
+| `paper-raised` | `#fbfcfc` | `#131b24` | Diagram node fill                                                                         |
+| `ink`          | `#16202b` | `#e6ebef` | Primary text, primary button fill, node outlines                                          |
+| `graphite`     | `#5b6672` | `#93a0ac` | Secondary text, meta, diagram edges                                                       |
+| `rule`         | `#d3d9dd` | `#26313c` | Hairlines, dividers, list markers                                                         |
+| `cobalt`       | `#1f4fd1` | `#7fa2ff` | **Interactive only:** links, active nav, current-role dot, focus ring, diagram focal node |
+| `cobalt-ink`   | `#ffffff` | `#0e141b` | Text on cobalt                                                                            |
+| `grid-dot`     | `#c9d0d5` | `#223040` | Dot grid behind the hero figure (`.dot-grid`)                                             |
+| `status`       | `#2f8f5b` | `#5cc48a` | Success confirmation ("Copied")                                                           |
 
 Dark mode follows `prefers-color-scheme`. There is no manual toggle yet (see ROADMAP). Never use raw hex values or Tailwind palette colors (`zinc-*`, `violet-*`) in components. Add a token instead. `opengraph-image.tsx` is the exception, because `next/og` can't read CSS variables, so it mirrors the light values by hand. It uses static Archivo instances from `assets/fonts` (Expanded Bold for the name, Regular for the rest); regenerate them with fontTools' `varLib.instancer` + `subset` if new glyphs are needed.
 
@@ -32,15 +32,15 @@ Both themes pass WCAG AA for body text. In light mode, `graphite` on `paper` is 
 
 One family, **Archivo** (variable `wght` 100–900 and `wdth` 62–125). Width is the expressive axis. Fallback fonts can't do width, so keep above-the-fold wide text from wrapping differently in the fallback (the hero name is forced to one word per line):
 
-| Role | Classes |
-|---|---|
-| Hero name | `text-[clamp(3.25rem,9vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em] font-stretch-125%` |
-| Hero statement | `text-xl sm:text-2xl leading-snug max-w-[30ch]` |
-| Section title (h2) | `text-2xl font-semibold tracking-tight font-stretch-118%` |
-| Item title (h3) | `text-xl font-semibold font-stretch-112%` |
-| Sub-item (h4) | `text-lg font-semibold` |
-| Body | base 17px / 1.6 (`body` in globals.css), measure `max-w-[65ch]` |
-| Meta | `text-sm text-graphite` |
+| Role               | Classes                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------- |
+| Hero name          | `text-[clamp(3.25rem,9vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em] font-stretch-125%` |
+| Hero statement     | `text-xl sm:text-2xl leading-snug max-w-[30ch]`                                                |
+| Section title (h2) | `text-2xl font-semibold tracking-tight font-stretch-118%`                                      |
+| Item title (h3)    | `text-xl font-semibold font-stretch-112%`                                                      |
+| Sub-item (h4)      | `text-lg font-semibold`                                                                        |
+| Body               | base 17px / 1.6 (`body` in globals.css), measure `max-w-[65ch]`                                |
+| Meta               | `text-sm text-graphite`                                                                        |
 
 Rules: no all-caps labels, no eyebrow text above headings, no highlighting a single word in a headline, and no middle-dot (`·`) separated meta strings. Use commas or sentences.
 
@@ -57,12 +57,12 @@ Section order: Hero, About, Experience, Projects, Skills, Certifications, Educat
 
 ## Components
 
-| Component | Notes |
-|---|---|
-| `Section` | Section shell described above. Always use it for new sections. |
-| `Button` | `primary` (ink fill, turns cobalt on hover) or `secondary` (outlined). Sizes `md`/`lg`. Renders `<a>` when `href` is set, and forwards all props. |
+| Component             | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Section`             | Section shell described above. Always use it for new sections.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `Button`              | `primary` (ink fill, turns cobalt on hover) or `secondary` (outlined). Sizes `md`/`lg`. Renders `<a>` when `href` is set, and forwards all props.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `ArchitectureDiagram` | Server-rendered SVG from `src/data/architecture.ts`, with a `layout` prop: `wide` (680×530, shown from `sm`) and `tall` (360×775, phones, no horizontal scroll). The Hero renders both and toggles them with `hidden sm:block` / `sm:hidden`. Labels live once in `nodeContent`/`groupContent`/`edgeContent`; each layout only supplies geometry. Dashed `groups` are zones (Signals, Kubernetes, Data, Shared Azure services); `nodes` may omit `detail`; `edges` can be `bidirectional`. Edge labels have a paper-colored halo (`paint-order: stroke`) so they stay legible over borders. The emphasis node is cobalt. |
-| Text links | `text-cobalt underline-offset-4 hover:underline`, or for quiet links `underline decoration-rule hover:text-cobalt hover:decoration-cobalt`. |
+| Text links            | `text-cobalt underline-offset-4 hover:underline`, or for quiet links `underline decoration-rule hover:text-cobalt hover:decoration-cobalt`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ## Motion
 

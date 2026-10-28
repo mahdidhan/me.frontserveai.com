@@ -23,9 +23,7 @@ export function Education() {
         </div>
 
         <div id="languages">
-          <h3 className="text-xl font-semibold font-stretch-112%">
-            Languages
-          </h3>
+          <h3 className="text-xl font-semibold font-stretch-112%">Languages</h3>
           <dl className="mt-3 divide-y divide-rule border-y border-rule">
             {portfolio.languages.map((language) => (
               <div

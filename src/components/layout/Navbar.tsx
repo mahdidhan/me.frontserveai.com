@@ -85,7 +85,9 @@ export function Navbar() {
             <li key={item.href}>
               <a
                 href={item.href}
-                aria-current={activeSection === item.href ? "location" : undefined}
+                aria-current={
+                  activeSection === item.href ? "location" : undefined
+                }
                 className={cn(
                   "text-sm underline-offset-10 transition-colors",
                   activeSection === item.href
@@ -136,7 +138,9 @@ export function Navbar() {
                 <a
                   href={item.href}
                   onClick={closeMenu}
-                  aria-current={activeSection === item.href ? "location" : undefined}
+                  aria-current={
+                    activeSection === item.href ? "location" : undefined
+                  }
                   className={cn(
                     "block py-4 text-xl font-stretch-112%",
                     activeSection === item.href ? "text-cobalt" : "text-ink",

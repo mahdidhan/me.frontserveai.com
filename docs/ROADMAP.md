@@ -21,7 +21,7 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 - [x] Removed the unused create-next-app SVGs.
 - [ ] React list keys use text slices (`highlight.slice(0, 50)`). That's fine for static content, but index-plus-content would be safer.
 - [x] Tailwind v4 naming: `bg-gradient-to-*` became `bg-linear-to-*`.
-- [ ] Add Prettier (+ `prettier-plugin-tailwindcss`). This will reformat most files, so do it as its own commit.
+- [x] Prettier + `prettier-plugin-tailwindcss` (`npm run format`), checked in CI.
 - [x] `typecheck` script plus GitHub Actions CI (lint, typecheck, build on push and PR).
 - [ ] `@types/node` is `^20`, which is fine. Consider bumping it to match the Node version Vercel uses.
 

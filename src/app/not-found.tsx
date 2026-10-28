@@ -7,8 +7,8 @@ export default function NotFound() {
         Page not found
       </h1>
       <p className="mt-4 max-w-[48ch] text-lg text-graphite">
-        There&apos;s nothing at this address. It may have moved, or the link
-        may have a typo.
+        There&apos;s nothing at this address. It may have moved, or the link may
+        have a typo.
       </p>
       <Link
         href="/"

@@ -151,13 +151,77 @@ const wide = layout(
     ["notify", { cx: 575, cy: 494, ...platformWide }],
   ],
   [
-    ["sso", { points: [[510, 45], [420, 45]], labelAt: [465, 37] }],
-    ["https", { points: [[340, 70], [340, 148]], labelAt: [348, 100], labelAnchor: "start" }],
-    ["route", { points: [[340, 188], [340, 233]] }],
-    ["signals", { points: [[170, 265], [250, 265]], labelAt: [210, 257] }],
-    ["data", { points: [[430, 265], [510, 265]], labelAt: [470, 257] }],
-    ["events", { points: [[340, 297], [340, 370]], labelAt: [348, 356], labelAnchor: "start" }],
-    ["messages", { points: [[160, 395], [250, 395]], labelAt: [205, 387] }],
+    [
+      "sso",
+      {
+        points: [
+          [510, 45],
+          [420, 45],
+        ],
+        labelAt: [465, 37],
+      },
+    ],
+    [
+      "https",
+      {
+        points: [
+          [340, 70],
+          [340, 148],
+        ],
+        labelAt: [348, 100],
+        labelAnchor: "start",
+      },
+    ],
+    [
+      "route",
+      {
+        points: [
+          [340, 188],
+          [340, 233],
+        ],
+      },
+    ],
+    [
+      "signals",
+      {
+        points: [
+          [170, 265],
+          [250, 265],
+        ],
+        labelAt: [210, 257],
+      },
+    ],
+    [
+      "data",
+      {
+        points: [
+          [430, 265],
+          [510, 265],
+        ],
+        labelAt: [470, 257],
+      },
+    ],
+    [
+      "events",
+      {
+        points: [
+          [340, 297],
+          [340, 370],
+        ],
+        labelAt: [348, 356],
+        labelAnchor: "start",
+      },
+    ],
+    [
+      "messages",
+      {
+        points: [
+          [160, 395],
+          [250, 395],
+        ],
+        labelAt: [205, 387],
+      },
+    ],
   ],
 );
 
@@ -191,13 +255,80 @@ const tall = layout(
     ["notify", { cx: 265, cy: 726, ...platformTall }],
   ],
   [
-    ["sso", { points: [[195, 45], [155, 45]], labelAt: [175, 37] }],
-    ["https", { points: [[140, 68], [140, 132]], labelAt: [148, 92], labelAnchor: "start" }],
-    ["route", { points: [[140, 168], [140, 192]] }],
-    ["signals", { points: [[90, 300], [90, 248]], labelAt: [96, 284], labelAnchor: "start" }],
-    ["data", { points: [[270, 248], [270, 300]], labelAt: [276, 284], labelAnchor: "start" }],
-    ["events", { points: [[180, 248], [180, 498]], labelAt: [186, 492], labelAnchor: "start" }],
-    ["messages", { points: [[180, 580], [180, 548]], labelAt: [188, 568], labelAnchor: "start" }],
+    [
+      "sso",
+      {
+        points: [
+          [195, 45],
+          [155, 45],
+        ],
+        labelAt: [175, 37],
+      },
+    ],
+    [
+      "https",
+      {
+        points: [
+          [140, 68],
+          [140, 132],
+        ],
+        labelAt: [148, 92],
+        labelAnchor: "start",
+      },
+    ],
+    [
+      "route",
+      {
+        points: [
+          [140, 168],
+          [140, 192],
+        ],
+      },
+    ],
+    [
+      "signals",
+      {
+        points: [
+          [90, 300],
+          [90, 248],
+        ],
+        labelAt: [96, 284],
+        labelAnchor: "start",
+      },
+    ],
+    [
+      "data",
+      {
+        points: [
+          [270, 248],
+          [270, 300],
+        ],
+        labelAt: [276, 284],
+        labelAnchor: "start",
+      },
+    ],
+    [
+      "events",
+      {
+        points: [
+          [180, 248],
+          [180, 498],
+        ],
+        labelAt: [186, 492],
+        labelAnchor: "start",
+      },
+    ],
+    [
+      "messages",
+      {
+        points: [
+          [180, 580],
+          [180, 548],
+        ],
+        labelAt: [188, 568],
+        labelAnchor: "start",
+      },
+    ],
   ],
 );
 

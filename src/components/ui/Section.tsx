@@ -13,7 +13,13 @@ interface SectionProps {
  * Spec-sheet section: a sticky title rail on the left, content on the right,
  * separated from the previous section by a hairline rule.
  */
-export function Section({ id, title, aside, children, className }: SectionProps) {
+export function Section({
+  id,
+  title,
+  aside,
+  children,
+  className,
+}: SectionProps) {
   return (
     <section
       id={id}

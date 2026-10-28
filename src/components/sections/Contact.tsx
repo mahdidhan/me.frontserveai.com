@@ -32,7 +32,7 @@ export function Contact() {
 
   return (
     <Section id="contact" title="Contact">
-      <p className="max-w-[28ch] text-2xl font-semibold leading-snug font-stretch-112% sm:text-3xl">
+      <p className="max-w-[28ch] text-2xl leading-snug font-semibold font-stretch-112% sm:text-3xl">
         Open to discussing architecture, cloud solutions, AI-powered platforms,
         and leadership roles.
       </p>
@@ -40,7 +40,7 @@ export function Contact() {
       <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
         <a
           href={`mailto:${email}`}
-          className="break-all text-xl text-cobalt underline decoration-cobalt/30 underline-offset-[6px] transition-colors hover:decoration-cobalt sm:text-2xl"
+          className="text-xl break-all text-cobalt underline decoration-cobalt/30 underline-offset-[6px] transition-colors hover:decoration-cobalt sm:text-2xl"
         >
           {email}
         </a>

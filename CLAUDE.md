@@ -5,6 +5,7 @@
 Single-page portfolio site for Mahdi Hamed (Software Architect & Cloud Solutions Engineer). Static content, no backend, no env vars. Deployed to Vercel from GitHub (`main`).
 
 Related docs (read when relevant):
+
 - [docs/DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md) — colors, typography, spacing, motion, component patterns. Read before any visual/UI change.
 - [docs/ROADMAP.md](docs/ROADMAP.md) — known issues and the enhancement/modernization backlog. Check it before starting improvement work, and update it when you finish or discover an item.
 
@@ -17,7 +18,7 @@ Related docs (read when relevant):
 - **No animation library.** The only motion is the hero diagram's CSS draw-in (`.diagram-*` in `globals.css`).
 - **lucide-react** for small UI icons (download, menu, external link, copy)
 - `clsx` + `tailwind-merge` via `cn()` in `src/lib/utils.ts`
-- ESLint 9 flat config (`eslint-config-next` core-web-vitals + typescript). No Prettier, no tests.
+- ESLint 9 flat config (`eslint-config-next` core-web-vitals + typescript). Prettier 3 with `prettier-plugin-tailwindcss` (`.prettierrc.json`; `endOfLine: auto` because git uses CRLF on Windows checkouts; `AGENTS.md` is ignored because Next manages it). No tests.
 
 ## Commands
 
@@ -26,7 +27,9 @@ npm install        # required first — node_modules is not committed (also need
 npm run dev        # http://localhost:3000
 npm run build      # production build — run this to verify changes (type-checks too)
 npm run lint       # eslint
-npm run typecheck  # tsc --noEmit (CI runs lint + typecheck + build on push/PR)
+npm run typecheck  # tsc --noEmit
+npm run format     # prettier --write . (sorts Tailwind classes too)
+npm run format:check  # CI runs format:check + lint + typecheck + build on push/PR
 ```
 
 Node 20.9+ is required by Next 16.
@@ -70,6 +73,7 @@ Key data flow: **content lives in `src/data/`, components only render it.** Sect
 ## Next.js 16 gotchas
 
 This is newer than most training data. Before using any Next API, read `node_modules/next/dist/docs/` (after `npm install`). In particular:
+
 - Request APIs (`params`, `searchParams`, `cookies()`, `headers()`) are **async** and must be awaited.
 - `middleware.ts` is renamed to `proxy.ts`.
 - Turbopack is the default bundler for dev and build.
@@ -78,7 +82,7 @@ This is newer than most training data. Before using any Next API, read `node_mod
 
 ## Verification
 
-There are no tests. Last Lighthouse run (2026-10-28, local prod build): mobile 96/100/96/100, desktop 100/100/96/100 (perf/a11y/best-practices/SEO). After changes, run `npm run lint` and `npm run build`, and spot-check `npm run dev` at mobile (~375px) and desktop widths, in **both light and dark** color schemes. Check keyboard focus rings and the reduced-motion behavior.
+Run `npm run format` before committing. There are no tests. Last Lighthouse run (2026-10-28, local prod build): mobile 96/100/96/100, desktop 100/100/96/100 (perf/a11y/best-practices/SEO). After changes, run `npm run lint` and `npm run build`, and spot-check `npm run dev` at mobile (~375px) and desktop widths, in **both light and dark** color schemes. Check keyboard focus rings and the reduced-motion behavior.
 Screenshots: headless Chrome (`chrome.exe --headless=new --screenshot=… --window-size=W,H --blink-settings=preferredColorScheme=1|0`, plus a throwaway `--user-data-dir`). Chrome won't go below ~500px wide on Windows, so test phone widths by loading the page in a 390px `<iframe>`.
 
 ## Identity / domain
