@@ -23,7 +23,15 @@ export function Hero() {
                 {portfolio.name}
               </span>
               <span className="mt-0.5 block text-base font-normal text-graphite">
-                {portfolio.role}
+                {portfolio.role.title},{" "}
+                <a
+                  href={portfolio.role.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-rule underline-offset-4 transition-colors hover:text-cobalt hover:decoration-cobalt"
+                >
+                  {portfolio.role.company}
+                </a>
               </span>
               <span className="mt-5 block text-[clamp(2.1rem,4.2vw,2.85rem)] leading-[1.06] font-bold tracking-[-0.025em] text-balance">
                 {portfolio.tagline}

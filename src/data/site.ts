@@ -64,6 +64,7 @@ export const jsonLd = {
     "@type": "Organization",
     // "Wizard AI (part of Wizard Group, UK)" -> "Wizard AI"
     name: job.company.split(" (")[0],
+    ...(job.companyUrl && { url: job.companyUrl }),
   })),
   alumniOf: portfolio.education.map((edu) => ({
     "@type": "CollegeOrUniversity",

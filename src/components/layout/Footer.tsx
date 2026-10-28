@@ -22,6 +22,16 @@ export function Footer() {
           </li>
           <li>
             <a
+              href={portfolio.role.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              {portfolio.role.company}
+            </a>
+          </li>
+          <li>
+            <a
               href={siteConfig.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"

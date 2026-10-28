@@ -68,6 +68,16 @@ export function Contact() {
         <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-inverse-muted">
           <li>
             <a
+              href={portfolio.role.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              {portfolio.role.company}
+            </a>
+          </li>
+          <li>
+            <a
               href={linkedin}
               target="_blank"
               rel="noopener noreferrer"

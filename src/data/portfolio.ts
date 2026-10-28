@@ -4,7 +4,11 @@ export const portfolio: PortfolioData = {
   name: "Mahdi Hamed",
   title: "Founder & CEO of FrontServe AI, and Software Architect",
   location: "Amman, Jordan",
-  role: "Founder & CEO, FrontServe AI",
+  role: {
+    title: "Founder & CEO",
+    company: "FrontServe AI",
+    url: "https://frontserveai.com",
+  },
   tagline:
     "I'm building FrontServe AI, a voice order-taker that understands Arabic and English.",
   intro:
@@ -76,6 +80,7 @@ export const portfolio: PortfolioData = {
   experience: [
     {
       company: "FrontServe AI",
+      companyUrl: "https://frontserveai.com",
       role: "Founder & CEO",
       period: "2026 – Present",
       location: "Amman, Jordan",

@@ -8,6 +8,8 @@ export interface Metric {
 
 export interface Experience {
   company: string;
+  /** Company website; the company name links to it. */
+  companyUrl?: string;
   role: string;
   period: string;
   location: string;
@@ -106,8 +108,8 @@ export interface PortfolioData {
   name: string;
   title: string;
   location: string;
-  /** Short role line beside the name in the hero, e.g. "Founder & CEO, FrontServe AI". */
-  role: string;
+  /** Role line under the name in the hero: "Founder & CEO, FrontServe AI", with the company linked. */
+  role: { title: string; company: string; url: string };
   /** Hero headline. */
   tagline: string;
   /** Hero sentence under the headline. */

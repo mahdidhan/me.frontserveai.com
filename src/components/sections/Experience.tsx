@@ -5,13 +5,19 @@ import type { Experience as Job } from "@/types/portfolio";
 
 /** Group consecutive roles at the same company so promotions read as one story. */
 function groupByCompany(jobs: Job[]) {
-  const groups: { company: string; location: string; roles: Job[] }[] = [];
+  const groups: {
+    company: string;
+    companyUrl?: string;
+    location: string;
+    roles: Job[];
+  }[] = [];
   for (const job of jobs) {
     const last = groups.at(-1);
     if (last?.company === job.company) last.roles.push(job);
     else
       groups.push({
         company: job.company,
+        companyUrl: job.companyUrl,
         location: job.location,
         roles: [job],
       });
@@ -33,7 +39,18 @@ export function Experience() {
           <li key={group.company}>
             <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
               <h3 className="text-xl font-semibold font-stretch-112%">
-                {group.company}
+                {group.companyUrl ? (
+                  <a
+                    href={group.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline decoration-rule underline-offset-4 transition-colors hover:text-cobalt hover:decoration-cobalt"
+                  >
+                    {group.company}
+                  </a>
+                ) : (
+                  group.company
+                )}
               </h3>
               <p className="text-sm text-graphite">{group.location}</p>
             </div>
