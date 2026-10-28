@@ -2,14 +2,15 @@ import { portfolio } from "@/data/portfolio";
 import { siteConfig } from "@/data/site";
 
 const linkClass =
-  "underline decoration-rule underline-offset-4 transition-colors hover:text-cobalt hover:decoration-cobalt";
+  "underline decoration-inverse-rule underline-offset-4 transition-colors hover:text-inverse-ink hover:decoration-inverse-ink";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-rule">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 text-sm text-graphite sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+    // Continues the inverse Contact band above it.
+    <footer className="border-t border-inverse-rule bg-inverse">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-inverse-muted sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <p>
           © {year} {portfolio.name}
         </p>

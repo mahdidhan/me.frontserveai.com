@@ -4,36 +4,53 @@ import Image from "next/image";
 
 export function About() {
   return (
-    <Section
-      id="about"
-      title="About"
-      aside={
-        <Image
-          src="/profile.jpg"
-          alt={`Portrait of ${portfolio.name}`}
-          width={208}
-          height={208}
-          sizes="(min-width: 1024px) 208px, 128px"
-          className="mt-6 h-32 w-32 rounded-md object-cover object-top lg:h-52 lg:w-52"
-        />
-      }
-    >
-      <div className="max-w-[65ch] space-y-5 text-lg">
-        {portfolio.summary.map((paragraph) => (
-          <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-        ))}
-      </div>
+    <Section id="about" title="About" band>
+      <div className="grid gap-8 md:grid-cols-[13rem_minmax(0,1fr)] md:gap-10">
+        {/* The portrait sits on a drafting grid like a labelled figure. It's a
+            cut-out (transparent WebP) so it works on both themes. */}
+        <figure className="line-grid relative aspect-square w-40 max-w-full overflow-hidden rounded-md border border-rule bg-paper-raised md:w-52">
+          <figcaption className="absolute top-2 left-2.5 text-xs text-graphite">
+            Fig. 2
+          </figcaption>
+          <Image
+            src="/profile-cutout.webp"
+            alt={`Portrait of ${portfolio.name}`}
+            width={480}
+            height={480}
+            sizes="(min-width: 768px) 208px, 160px"
+            className="absolute inset-x-0 bottom-0 h-auto w-full grayscale"
+          />
+        </figure>
 
-      <dl className="mt-12 grid gap-6 border-t border-rule pt-6 sm:grid-cols-3">
-        {portfolio.stats.map((stat) => (
-          <div key={stat.label}>
-            <dt className="text-sm text-graphite">{stat.label}</dt>
-            <dd className="mt-1 text-xl font-semibold font-stretch-112%">
-              {stat.value}
-            </dd>
+        <div className="max-w-[62ch]">
+          <p className="text-[clamp(1.35rem,2.6vw,1.65rem)] leading-snug tracking-[-0.01em] text-balance">
+            {portfolio.lede}
+          </p>
+          <div className="mt-5 space-y-4 text-graphite">
+            {portfolio.summary.map((paragraph) => (
+              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+            ))}
           </div>
-        ))}
-      </dl>
+
+          <dl className="mt-8 grid border-t border-rule sm:grid-cols-3">
+            {portfolio.facts.map((fact, i) => (
+              <div
+                key={fact.label}
+                className={
+                  i === 0
+                    ? "pt-4 sm:pr-4"
+                    : "mt-4 border-t border-rule pt-4 sm:mt-0 sm:border-t-0 sm:border-l sm:pr-4 sm:pl-4"
+                }
+              >
+                <dt className="text-sm text-graphite">{fact.label}</dt>
+                <dd className="mt-0.5 text-lg font-semibold font-stretch-112% tabular-nums">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
     </Section>
   );
 }
