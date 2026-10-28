@@ -32,7 +32,7 @@ A living backlog for enhancing and modernizing the portfolio. Mark items `[x]` w
 - [x] `featured` replaced by `caseStudy` (projects rendered as full case files) and `draft` (not rendered).
 - [x] FrontServe AI (Mahdi's AI order-taker, in development) added as a second case file with website and demo links, and the Stack's third column now reflects it.
 - [ ] Decision notes on the diagram: the node `note`s state facts only. Adding the reasons behind key choices (gRPC, the Cosmos DB graph, Service Bus) would make the explorer much stronger.
-- [ ] Professional portrait cut-out: `public/profile-cutout.webp` is an automatic flood-fill mask with a slight halo around the hair.
+- [x] Portrait cut-out redone with an AI model (rembg, BiRefNet-portrait) plus white-fringe removal, so the hair edge is clean on the dark theme.
 - [x] Manual light/dark toggle (navbar and command menu), saved to `localStorage` and applied before paint by an inline script.
 - [x] Command menu (Ctrl/⌘ K): sections, copy email, résumé, theme, LinkedIn, GitHub.
 - [ ] Contact form (Server Action + Resend/email service), or a "book a call" link.

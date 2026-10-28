@@ -14,7 +14,11 @@ export const portfolio: PortfolioData = {
   impact: [
     { value: "ar + en", label: "orders in Arabic, English or a mix of both" },
     { value: "2", label: "model calls per turn: understand, then reply" },
-    { value: "0", label: "prices set by the model; code sets every number" },
+    {
+      value: "100%",
+      label:
+        "of prices and totals come from the store's own menu, never from the AI",
+    },
     { value: "5+", label: "years building enterprise SaaS on .NET and Azure" },
   ],
   lede: "I build software that real businesses run on: an AI order-taker for counters in Jordan, and a 24/7 security platform for 40 customer tenants.",
